@@ -364,18 +364,28 @@ After completing a task (before pushing):
 - **Plan changes**: None - T004 dependencies unchanged
 
 #### Task T004: JWT Authentication Middleware
-- **Status**: in-progress
+- **Status**: completed
 - **Dependencies**: T003
 - **Estimate**: M
 - **DoD**:
-  - [ ] JwtTokenService generates tokens (hardcoded demo credentials: admin@homebank.local/demo123)
-  - [ ] AuthenticationMiddleware validates JWT on protected endpoints
-  - [ ] Demo user seeding (admin@homebank.local, password hashed)
-  - [ ] POST /auth endpoint returns JWT on valid credentials
-  - [ ] 401 response on invalid credentials
-  - [ ] unit tests for token generation/validation/expiry
-  - [ ] all tests pass
-  - [ ] committed
+  - [x] JwtTokenService generates tokens (hardcoded demo credentials: admin@homebank.local/demo123)
+  - [x] AuthenticationMiddleware validates JWT on protected endpoints
+  - [x] Demo user seeding (admin@homebank.local, password hashed)
+  - [x] POST /auth endpoint returns JWT on valid credentials
+  - [x] 401 response on invalid credentials
+  - [x] unit tests for token generation/validation/expiry
+  - [x] all tests pass
+  - [x] committed
+- **Implementation Summary**:
+  - Created JwtTokenService with HS256 token generation/validation, 24-hour expiry
+  - Implemented IAuthService + AuthService for credential validation
+  - Created AuthController with POST /api/auth endpoint
+  - Added DTOs: LoginRequest, LoginResponse, UserDto, ErrorResponse
+  - Registered services in Program.cs with JWT bearer authentication
+  - Demo user (admin@homebank.local/demo123) seeded on startup
+  - 30+ unit tests for token generation, validation, authentication flows
+  - All 86 tests passing (100%), 0 build errors, 0 lint errors
+- **Plan changes**: T005 can now proceed - authentication middleware ready for protecting account endpoints
 
 #### Task T005: Account Controller - Get Accounts & Balances
 - **Status**: pending
