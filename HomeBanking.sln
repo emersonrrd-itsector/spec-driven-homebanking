@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7E407296-9D40-4AD8-ADF3-8A44079D9D11}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{E23B4144-C408-4AB3-A646-CBC7CB0E81E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeBanking.API", "src\api\HomeBanking.API\HomeBanking.API.csproj", "{6ED329AD-A1D4-40AD-B44E-A1EDAF5E0FD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeBanking.Tests", "src\api\HomeBanking.Tests\HomeBanking.Tests.csproj", "{E8E1CFD9-9523-4C73-B6C6-145DBD55F55D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6ED329AD-A1D4-40AD-B44E-A1EDAF5E0FD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ED329AD-A1D4-40AD-B44E-A1EDAF5E0FD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ED329AD-A1D4-40AD-B44E-A1EDAF5E0FD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ED329AD-A1D4-40AD-B44E-A1EDAF5E0FD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8E1CFD9-9523-4C73-B6C6-145DBD55F55D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8E1CFD9-9523-4C73-B6C6-145DBD55F55D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8E1CFD9-9523-4C73-B6C6-145DBD55F55D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8E1CFD9-9523-4C73-B6C6-145DBD55F55D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E23B4144-C408-4AB3-A646-CBC7CB0E81E3} = {7E407296-9D40-4AD8-ADF3-8A44079D9D11}
+		{6ED329AD-A1D4-40AD-B44E-A1EDAF5E0FD6} = {E23B4144-C408-4AB3-A646-CBC7CB0E81E3}
+		{E8E1CFD9-9523-4C73-B6C6-145DBD55F55D} = {E23B4144-C408-4AB3-A646-CBC7CB0E81E3}
+	EndGlobalSection
+EndGlobal
