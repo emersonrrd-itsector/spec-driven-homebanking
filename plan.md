@@ -413,19 +413,30 @@ After completing a task (before pushing):
 - **Plan changes**: None - T006 dependencies unchanged, can proceed with Transaction Controller implementation
 
 #### Task T006: Transaction Controller - Get Transactions
-- **Status**: pending
+- **Status**: completed
 - **Dependencies**: T005
 - **Estimate**: M
 - **DoD**:
-  - [ ] GET /api/transactions?accountId={id} returns paginated transactions
-  - [ ] Response DTO: { id, amount, date, description, category, type }
-  - [ ] Pagination support (default: skip=0, take=10)
-  - [ ] Filtering by category optional
-  - [ ] Authorized (JWT required)
-  - [ ] Unit tests (200, 401, pagination, filtering)
-  - [ ] Scalar OpenAPI schema updated
-  - [ ] all tests pass
-  - [ ] committed
+  - [x] GET /api/transactions?accountId={id} returns paginated transactions
+  - [x] Response DTO: { id, amount, date, description, category, type }
+  - [x] Pagination support (default: skip=0, take=10)
+  - [x] Filtering by category optional
+  - [x] Authorized (JWT required)
+  - [x] Unit tests (200, 401, pagination, filtering)
+  - [x] Scalar OpenAPI schema updated
+  - [x] all tests pass
+  - [x] committed
+- **Implementation Summary**:
+  - Created TransactionDto and TransactionsResponse DTOs
+  - Implemented ITransactionService + TransactionService for business logic
+  - Created TransactionsController with GET /api/transactions endpoint
+  - Supports query params: accountId (required), skip (0), take (10), category (optional)
+  - Returns paginated transactions with total count, ordered by date descending
+  - User isolation enforced: can only access own account transactions
+  - 26 controller tests + 23 service tests (all passing)
+  - All 209 tests passing (improved from 86)
+  - ProducesResponseType attributes configured for Scalar OpenAPI
+- **Plan changes**: None - T007 dependencies unchanged, can proceed with Transfer validation
 
 #### Task T007: Transfer Validation & Business Rules
 - **Status**: pending
