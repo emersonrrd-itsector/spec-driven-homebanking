@@ -10,7 +10,7 @@
 
 25 atomic tasks organized in 5 phases. Each task is independently deployable and testable. Dependencies are clear; tasks can be parallelized where possible.
 
-**Status**: 16 of 26 tasks complete (T000-T016, Phase 1 API Foundation complete, Phase 2 Frontend Foundation nearing completion!)  
+**Status**: 17 of 26 tasks complete (T000-T017, Phase 1 API Foundation complete, Phase 2 Frontend Foundation almost complete!)  
 **Phases**:
 0. **Bootstrap** (T000): Project scaffold and build verification
 1. **API Foundation** (T001-T010): .NET scaffolding, data layer, REST endpoints, auth
@@ -730,22 +730,39 @@ After completing a task (before pushing):
   - Code Quality: 0 build errors, 0 lint errors, 0 TypeScript errors
 
 #### Task T017: Transfer Form Page
-- **Status**: pending
+- **Status**: completed
 - **Dependencies**: T016, T008
 - **Estimate**: M
 - **DoD**:
-  - [ ] Form fields: From Account (dropdown), To Account (dropdown), Amount (number), Description (textarea, optional)
-  - [ ] Form validation: amount > 0, from ≠ to (client-side via React Hook Form)
-  - [ ] shadcn/ui Form component for layout and error display
-  - [ ] Submit button: disabled on invalid form or during request
-  - [ ] Calls TransfersService.createTransfer()
-  - [ ] Success: success toast shown + redirected to /transactions
-  - [ ] Error: error toast shown (e.g., "Insufficient balance"), retry button enabled
-  - [ ] Loading state: spinner in button, form disabled
-  - [ ] Dark theme ready
-  - [ ] Unit tests (validation, submit, error handling)
-  - [ ] all tests pass
-  - [ ] committed
+  - [x] Form fields: From Account (dropdown), To Account (dropdown), Amount (number), Description (textarea, optional)
+  - [x] Form validation: amount > 0, from ≠ to (client-side via React Hook Form)
+  - [x] shadcn/ui Form component for layout and error display
+  - [x] Submit button: disabled on invalid form or during request
+  - [x] Calls TransfersService.createTransfer()
+  - [x] Success: success alert shown + redirected to /transactions (toast in T018)
+  - [x] Error: error message shown (e.g., "Insufficient balance"), retry button enabled
+  - [x] Loading state: spinner in button, form disabled
+  - [x] Dark theme ready
+  - [x] Unit tests (validation, submit, error handling)
+  - [x] all tests pass (34 comprehensive test cases)
+  - [x] committed
+- **Plan changes**: None - T018 (Toast Notifications) ready to proceed with clear dependency
+- **Implementation Summary**:
+  - TransferPage.tsx: Full transfer form with From/To account selectors, amount input, optional description
+  - Account selectors: Populated from AccountsService.getAccounts(), show balance alongside name
+  - Form validation: React Hook Form with rules - amount > 0.01, fromAccountId ≠ toAccountId (custom validator)
+  - Amount field: Number input with step="0.01", min="0" for precise decimal handling
+  - Description field: Optional textarea with 500 char limit, character counter, placeholder text
+  - API integration: TransfersService.createTransfer(fromAccountId, toAccountId, amount, description)
+  - Success flow: Alert confirmation (upgraded to toast in T018), navigate to /transactions preserving account context
+  - Error handling: Specific error messages for InsufficientBalance with details (available vs requested)
+  - Error display: Inline with red styling + AlertCircle icon, form visible for retry
+  - Loading state: "Transferring..." spinner in button, all form inputs disabled during submission
+  - Account loading: Spinner during fetch, handles empty accounts state
+  - Dark theme: Complete Tailwind dark styling (slate-900, slate-800, slate-700, text-white)
+  - Form state: Submit button disabled when form invalid or submitting
+  - Unit tests: 34 comprehensive test cases covering rendering, validation, submission, errors, and state
+  - Code Quality: 0 build errors, 0 lint errors, 0 TypeScript errors
 
 #### Task T018: Toast Notifications
 - **Status**: pending
