@@ -10,7 +10,7 @@
 
 25 atomic tasks organized in 5 phases. Each task is independently deployable and testable. Dependencies are clear; tasks can be parallelized where possible.
 
-**Status**: 6 of 26 tasks complete (T000, T001, T002, T003, T004, T005)  
+**Status**: 8 of 26 tasks complete (T000, T001, T002, T003, T004, T005, T006, T007)  
 **Phases**:
 0. **Bootstrap** (T000): Project scaffold and build verification
 1. **API Foundation** (T001-T010): .NET scaffolding, data layer, REST endpoints, auth
@@ -439,18 +439,30 @@ After completing a task (before pushing):
 - **Plan changes**: None - T007 dependencies unchanged, can proceed with Transfer validation
 
 #### Task T007: Transfer Validation & Business Rules
-- **Status**: pending
+- **Status**: completed
 - **Dependencies**: T006
 - **Estimate**: M
 - **DoD**:
-  - [ ] TransferService validates: sufficient balance, accounts exist, from ≠ to
-  - [ ] Error responses: InsufficientBalance, AccountNotFound, InvalidTransfer
-  - [ ] Transaction created in source account (debit, "Transfer to [name]")
-  - [ ] Transaction created in destination account (credit, "Transfer from [name]")
-  - [ ] Balances updated atomically
-  - [ ] Unit tests cover all validation scenarios
-  - [ ] all tests pass
-  - [ ] committed
+  - [x] TransferService validates: sufficient balance, accounts exist, from ≠ to
+  - [x] Error responses: InsufficientBalance, AccountNotFound, InvalidTransfer
+  - [x] Transaction created in source account (debit, "Transfer to [name]")
+  - [x] Transaction created in destination account (credit, "Transfer from [name]")
+  - [x] Balances updated atomically
+  - [x] Unit tests cover all validation scenarios (57 tests for T007)
+  - [x] all tests pass (238 total tests passing)
+  - [x] committed with message "feat(T007): Transfer Validation & Business Rules"
+- **Plan changes**: None - T008 (Transfer Controller) can now proceed with POST /api/transfers endpoint using this service
+- **Implementation Summary**:
+  - Created ITransferService interface + TransferService implementation
+  - Validates: sufficient balance, account existence, source ≠ destination, user authorization, account active status, currency matching
+  - Creates atomic transactions: debit in source ("Transfer to [account number]"), credit in destination ("Transfer from [account number]")
+  - Updates both balances atomically with single SaveChangesAsync call
+  - Error codes: InsufficientBalance, AccountNotFound, InvalidTransfer, Unauthorized
+  - Created TransferRequest DTO (FromAccountId, ToAccountId, Amount, Description)
+  - Created TransferResult DTO (success/failure responses with new balances)
+  - 57 comprehensive unit tests covering happy path, all validation failures, boundary conditions, and edge cases
+  - All 238 tests passing, 0 build errors, 0 lint warnings
+  - Registered services in Program.cs with scoped lifetime
 
 #### Task T008: Transfer Controller - POST Transfer
 - **Status**: pending
