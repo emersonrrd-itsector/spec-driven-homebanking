@@ -8,7 +8,9 @@
     ".NETCoreApp,Version=v9.0": {
       "HomeBanking.API/1.0.0": {
         "dependencies": {
-          "Microsoft.AspNetCore.OpenApi": "9.0.0"
+          "HomeBanking.Domain": "1.0.0",
+          "Microsoft.AspNetCore.OpenApi": "9.0.0",
+          "StyleCop.Analyzers": "1.2.0-beta.556"
         },
         "runtime": {
           "HomeBanking.API.dll": {}
@@ -30,6 +32,20 @@
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {
             "assemblyVersion": "1.6.17.0",
             "fileVersion": "1.6.17.0"
+          }
+        }
+      },
+      "StyleCop.Analyzers/1.2.0-beta.556": {
+        "dependencies": {
+          "StyleCop.Analyzers.Unstable": "1.2.0.556"
+        }
+      },
+      "StyleCop.Analyzers.Unstable/1.2.0.556": {},
+      "HomeBanking.Domain/1.0.0": {
+        "runtime": {
+          "HomeBanking.Domain.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       }
@@ -54,6 +70,25 @@
       "sha512": "sha512-Le+kehlmrlQfuDFUt1zZ2dVwrhFQtKREdKBo+rexOwaCoYP0/qpgT9tLxCsZjsgR5Itk1UKPcbgO+FyaNid/bA==",
       "path": "microsoft.openapi/1.6.17",
       "hashPath": "microsoft.openapi.1.6.17.nupkg.sha512"
+    },
+    "StyleCop.Analyzers/1.2.0-beta.556": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-llRPgmA1fhC0I0QyFLEcjvtM2239QzKr/tcnbsjArLMJxJlu0AA5G7Fft0OI30pHF3MW63Gf4aSSsjc5m82J1Q==",
+      "path": "stylecop.analyzers/1.2.0-beta.556",
+      "hashPath": "stylecop.analyzers.1.2.0-beta.556.nupkg.sha512"
+    },
+    "StyleCop.Analyzers.Unstable/1.2.0.556": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zvn9Mqs/ox/83cpYPignI8hJEM2A93s2HkHs8HYMOAQW0PkampyoErAiIyKxgTLqbbad29HX/shv/6LGSjPJNQ==",
+      "path": "stylecop.analyzers.unstable/1.2.0.556",
+      "hashPath": "stylecop.analyzers.unstable.1.2.0.556.nupkg.sha512"
+    },
+    "HomeBanking.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

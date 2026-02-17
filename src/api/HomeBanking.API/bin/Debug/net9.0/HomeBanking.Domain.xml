@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HomeBanking.Domain</name>
+    </assembly>
+    <members>
+        <member name="T:HomeBanking.Domain.DomainMarker">
+            <summary>
+            Domain project for HomeBanking application - contains aggregates, entities, and value objects.
+            </summary>
+        </member>
+    </members>
+</doc>

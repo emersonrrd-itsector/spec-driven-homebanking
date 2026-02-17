@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HomeBanking.API</name>
+    </assembly>
+    <members>
+        <member name="T:WeatherForecast">
+            <summary>
+            Weather forecast record.
+            </summary>
+            <param name="Date">The date of the forecast.</param>
+            <param name="TemperatureC">Temperature in Celsius.</param>
+            <param name="Summary">Weather summary.</param>
+        </member>
+        <member name="M:WeatherForecast.#ctor(System.DateOnly,System.Int32,System.String)">
+            <summary>
+            Weather forecast record.
+            </summary>
+            <param name="Date">The date of the forecast.</param>
+            <param name="TemperatureC">Temperature in Celsius.</param>
+            <param name="Summary">Weather summary.</param>
+        </member>
+        <member name="P:WeatherForecast.Date">
+            <summary>The date of the forecast.</summary>
+        </member>
+        <member name="P:WeatherForecast.TemperatureC">
+            <summary>Temperature in Celsius.</summary>
+        </member>
+        <member name="P:WeatherForecast.Summary">
+            <summary>Weather summary.</summary>
+        </member>
+        <member name="P:WeatherForecast.TemperatureF">
+            <summary>
+            Gets temperature in Fahrenheit.
+            </summary>
+        </member>
+    </members>
+</doc>

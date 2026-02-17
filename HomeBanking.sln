@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeBanking.API", "src\api\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeBanking.Tests", "src\api\HomeBanking.Tests\HomeBanking.Tests.csproj", "{E8E1CFD9-9523-4C73-B6C6-145DBD55F55D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeBanking.Domain", "src\api\HomeBanking.Domain\HomeBanking.Domain.csproj", "{9F8C0B3E-1A8D-48C5-A56E-7D8C2F1E9A0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,10 +30,15 @@ Global
 		{E8E1CFD9-9523-4C73-B6C6-145DBD55F55D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8E1CFD9-9523-4C73-B6C6-145DBD55F55D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8E1CFD9-9523-4C73-B6C6-145DBD55F55D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F8C0B3E-1A8D-48C5-A56E-7D8C2F1E9A0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F8C0B3E-1A8D-48C5-A56E-7D8C2F1E9A0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F8C0B3E-1A8D-48C5-A56E-7D8C2F1E9A0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F8C0B3E-1A8D-48C5-A56E-7D8C2F1E9A0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E23B4144-C408-4AB3-A646-CBC7CB0E81E3} = {7E407296-9D40-4AD8-ADF3-8A44079D9D11}
 		{6ED329AD-A1D4-40AD-B44E-A1EDAF5E0FD6} = {E23B4144-C408-4AB3-A646-CBC7CB0E81E3}
 		{E8E1CFD9-9523-4C73-B6C6-145DBD55F55D} = {E23B4144-C408-4AB3-A646-CBC7CB0E81E3}
+		{9F8C0B3E-1A8D-48C5-A56E-7D8C2F1E9A0B} = {E23B4144-C408-4AB3-A646-CBC7CB0E81E3}
 	EndGlobalSection
 EndGlobal

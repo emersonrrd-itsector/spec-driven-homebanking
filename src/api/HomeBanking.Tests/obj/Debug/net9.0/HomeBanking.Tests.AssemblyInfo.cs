@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HomeBanking.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5efb885f97638cb262a6faad7b5b13aaa3088fa")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ab2c994855c73c7d36d2606c0e1e35471b803402")]
 [assembly: System.Reflection.AssemblyProductAttribute("HomeBanking.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HomeBanking.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

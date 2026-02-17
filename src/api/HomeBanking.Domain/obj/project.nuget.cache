@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "LBQnT2fgcRA=",
+  "success": true,
+  "projectFilePath": "/Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/api/HomeBanking.Domain/HomeBanking.Domain.csproj",
+  "expectedPackageFiles": [
+    "/Users/itsector/.nuget/packages/stylecop.analyzers/1.2.0-beta.556/stylecop.analyzers.1.2.0-beta.556.nupkg.sha512",
+    "/Users/itsector/.nuget/packages/stylecop.analyzers.unstable/1.2.0.556/stylecop.analyzers.unstable.1.2.0.556.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,42 @@
+<Project>
+  <!-- Global .NET configuration for all projects in src/api -->
+  
+  <PropertyGroup>
+    <!-- Language Version -->
+    <LangVersion>13</LangVersion>
+    
+    <!-- Nullable reference types -->
+    <Nullable>enable</Nullable>
+    
+    <!-- Implicit usings -->
+    <ImplicitUsings>enable</ImplicitUsings>
+    
+    <!-- XML documentation -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    
+    <!-- StyleCop analyzers -->
+    <StyleCopAnalyzersEnabled>true</StyleCopAnalyzersEnabled>
+    
+    <!-- Treat warnings as errors for code quality enforcement -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    
+    <!-- Enable nullable analysis -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+  </PropertyGroup>
+
+  <!-- StyleCop.Analyzers package -->
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- Suppress specific StyleCop rules if needed -->
+  <PropertyGroup>
+    <!-- SA1200: Allow global usings at file level -->
+    <!-- SA1633: Allow files without file headers -->
+    <NoWarn>$(NoWarn);SA1200;SA1633</NoWarn>
+  </PropertyGroup>
+
+</Project>

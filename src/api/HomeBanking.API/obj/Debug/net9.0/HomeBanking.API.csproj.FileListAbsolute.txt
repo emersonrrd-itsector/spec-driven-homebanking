@@ -32,3 +32,8 @@
 /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/api/HomeBanking.API/obj/Debug/net9.0/HomeBanking.API.pdb
 /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/api/HomeBanking.API/obj/Debug/net9.0/HomeBanking.API.genruntimeconfig.cache
 /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/api/HomeBanking.API/obj/Debug/net9.0/ref/HomeBanking.API.dll
+/Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/api/HomeBanking.API/obj/Debug/net9.0/HomeBanking.API.xml
+/Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/api/HomeBanking.API/bin/Debug/net9.0/HomeBanking.API.xml
+/Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/api/HomeBanking.API/bin/Debug/net9.0/HomeBanking.Domain.dll
+/Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/api/HomeBanking.API/bin/Debug/net9.0/HomeBanking.Domain.pdb
+/Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/api/HomeBanking.API/bin/Debug/net9.0/HomeBanking.Domain.xml

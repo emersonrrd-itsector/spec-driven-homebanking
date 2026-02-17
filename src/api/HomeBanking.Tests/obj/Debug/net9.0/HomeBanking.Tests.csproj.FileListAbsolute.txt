@@ -96,3 +96,5 @@
 /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/api/HomeBanking.Tests/obj/Debug/net9.0/HomeBanking.Tests.pdb
 /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/api/HomeBanking.Tests/obj/Debug/net9.0/HomeBanking.Tests.genruntimeconfig.cache
 /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/api/HomeBanking.Tests/obj/Debug/net9.0/ref/HomeBanking.Tests.dll
+/Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/api/HomeBanking.Tests/obj/Debug/net9.0/HomeBanking.Tests.xml
+/Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/api/HomeBanking.Tests/bin/Debug/net9.0/HomeBanking.Tests.xml

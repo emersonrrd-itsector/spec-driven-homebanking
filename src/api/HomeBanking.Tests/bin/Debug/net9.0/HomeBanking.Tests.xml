@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HomeBanking.Tests</name>
+    </assembly>
+    <members>
+        <member name="T:HomeBanking.Tests.UnitTest1">
+            <summary>
+            Placeholder unit tests for the HomeBanking API.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.UnitTest1.Test1">
+            <summary>
+            Placeholder test method.
+            </summary>
+        </member>
+    </members>
+</doc>
