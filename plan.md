@@ -10,7 +10,7 @@
 
 25 atomic tasks organized in 5 phases. Each task is independently deployable and testable. Dependencies are clear; tasks can be parallelized where possible.
 
-**Status**: 1 of 26 tasks complete (T000)  
+**Status**: 2 of 26 tasks complete (T000, T001)  
 **Phases**:
 0. **Bootstrap** (T000): Project scaffold and build verification
 1. **API Foundation** (T001-T010): .NET scaffolding, data layer, REST endpoints, auth
@@ -308,18 +308,19 @@ After completing a task (before pushing):
 ### Phase 1: API Foundation (T001-T010)
 
 #### Task T001: .NET Configuration & Domain Project Setup
-- **Status**: pending
+- **Status**: completed
 - **Dependencies**: T000
 - **Estimate**: S
 - **DoD**: 
-  - [ ] Domain project created (HomeBanking.Domain class library)
-  - [ ] Domain project added to solution
-  - [ ] API project references Domain project
-  - [ ] Global usings configured in Directory.Build.props
-  - [ ] Directory.Build.props with common settings (LangVersion, Nullable, etc.)
-  - [ ] builds cleanly (`dotnet build`)
-  - [ ] no lint warnings (StyleCop)
-  - [ ] committed
+  - [x] Domain project created (HomeBanking.Domain class library)
+  - [x] Domain project added to solution
+  - [x] API project references Domain project
+  - [x] Global usings configured in Directory.Build.props
+  - [x] Directory.Build.props with common settings (LangVersion, Nullable, etc.)
+  - [x] builds cleanly (`dotnet build`)
+  - [x] no lint warnings (StyleCop)
+  - [x] committed
+- **Plan changes**: None - T002 dependencies unchanged
 
 #### Task T002: EF Core InMemory Context Setup
 - **Status**: pending
