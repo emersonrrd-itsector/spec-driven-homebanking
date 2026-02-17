@@ -19,7 +19,8 @@ builder.Services
     .AddScoped<JwtTokenService>(sp => new JwtTokenService(jwtSecret, jwtExpiryHours))
     .AddScoped<IAuthService, AuthService>()
     .AddScoped<IAccountService, AccountService>()
-    .AddScoped<ITransactionService, TransactionService>();
+    .AddScoped<ITransactionService, TransactionService>()
+    .AddScoped<ITransferService, TransferService>();
 
 builder.Services
     .AddAuthentication(options =>
