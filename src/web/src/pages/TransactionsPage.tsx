@@ -11,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from '../components/ui/table'
+import { useToast } from '../hooks/useToast'
 import AccountsService from '../services/accountsService'
 import TransactionsService from '../services/transactionsService'
 import type { AccountDto, TransactionDto, TransactionCategory, ApiError } from '../types'
@@ -57,6 +58,7 @@ const PAGE_SIZES = [10, 25, 50]
  */
 function TransactionsPage() {
   const [searchParams, setSearchParams] = useSearchParams()
+  const toast = useToast()
   const [accounts, setAccounts] = useState<AccountDto[]>([])
   const [transactions, setTransactions] = useState<TransactionDto[]>([])
   const [selectedAccountId, setSelectedAccountId] = useState<string>('')
@@ -91,8 +93,16 @@ function TransactionsPage() {
       }
     } catch (err) {
       const apiErr = err as ApiError
-      const errorMsg = apiErr.response?.data?.message || apiErr.message || 'Failed to load accounts'
+      let errorMsg = 'Failed to load accounts'
+
+      if (apiErr.response?.data?.message) {
+        errorMsg = apiErr.response.data.message
+      } else if (apiErr.message) {
+        errorMsg = apiErr.message
+      }
+
       setError(errorMsg)
+      toast.error(errorMsg)
     }
   }
 
@@ -129,8 +139,16 @@ function TransactionsPage() {
       setTotal(data.total)
     } catch (err) {
       const apiErr = err as ApiError
-      const errorMsg = apiErr.response?.data?.message || apiErr.message || 'Failed to load transactions'
+      let errorMsg = 'Failed to load transactions'
+
+      if (apiErr.response?.data?.message) {
+        errorMsg = apiErr.response.data.message
+      } else if (apiErr.message) {
+        errorMsg = apiErr.message
+      }
+
       setError(errorMsg)
+      toast.error(errorMsg)
       setTransactions([])
     } finally {
       setIsLoading(false)

@@ -12,6 +12,7 @@ import {
 } from '../components/ui/form'
 import { Input } from '../components/ui/input'
 import { Button } from '../components/ui/button'
+import { useToast } from '../hooks/useToast'
 import AuthService from '../services/authService'
 import type { ApiError } from '../types'
 
@@ -25,6 +26,7 @@ import type { ApiError } from '../types'
  */
 function LoginPage() {
   const navigate = useNavigate()
+  const toast = useToast()
   const [isLoading, setIsLoading] = useState(false)
   const [apiError, setApiError] = useState<string | null>(null)
 
@@ -49,20 +51,26 @@ function LoginPage() {
       // Call AuthService which stores JWT in localStorage
       await AuthService.login(data.email, data.password)
 
+      // Show success toast
+      toast.success('Logged in successfully!')
+
       // Navigate to dashboard on success
       navigate('/dashboard')
     } catch (error) {
       // Handle API errors and network errors
       const apiErr = error as ApiError
+      let errorMessage = 'Login failed. Please try again.'
+
       if (apiErr.response?.data?.message) {
         // API returned structured error response
-        setApiError(apiErr.response.data.message)
+        errorMessage = apiErr.response.data.message
       } else if (apiErr.message) {
         // Network or other error
-        setApiError(apiErr.message)
-      } else {
-        setApiError('Login failed. Please try again.')
+        errorMessage = apiErr.message
       }
+
+      setApiError(errorMessage)
+      toast.error(errorMessage)
     } finally {
       setIsLoading(false)
     }

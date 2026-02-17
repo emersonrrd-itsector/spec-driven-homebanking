@@ -10,6 +10,16 @@ if (!globalThis.crypto) {
   globalThis.crypto = webcrypto as Crypto
 }
 
+// Polyfill getRandomValues if needed
+if (globalThis.crypto && !globalThis.crypto.getRandomValues) {
+  globalThis.crypto.getRandomValues = (arr: any) => {
+    for (let i = 0; i < arr.length; i++) {
+      arr[i] = Math.floor(Math.random() * 256)
+    }
+    return arr
+  }
+}
+
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

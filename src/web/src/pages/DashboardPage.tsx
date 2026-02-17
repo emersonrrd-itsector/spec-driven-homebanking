@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { AlertCircle, Loader2, RefreshCw } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { Button } from '../components/ui/button'
+import { useToast } from '../hooks/useToast'
 import AccountsService from '../services/accountsService'
 import AuthService from '../services/authService'
 import type { AccountDto, ApiError } from '../types'
@@ -19,6 +20,7 @@ import type { AccountDto, ApiError } from '../types'
  */
 function DashboardPage() {
   const navigate = useNavigate()
+  const toast = useToast()
   const [accounts, setAccounts] = useState<AccountDto[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -37,13 +39,16 @@ function DashboardPage() {
       setAccounts(data)
     } catch (err) {
       const apiErr = err as ApiError
+      let errorMessage = 'Failed to load accounts. Please try again.'
+
       if (apiErr.response?.data?.message) {
-        setError(apiErr.response.data.message)
+        errorMessage = apiErr.response.data.message
       } else if (apiErr.message) {
-        setError(apiErr.message)
-      } else {
-        setError('Failed to load accounts. Please try again.')
+        errorMessage = apiErr.message
       }
+
+      setError(errorMessage)
+      toast.error(errorMessage)
     } finally {
       setIsLoading(false)
     }

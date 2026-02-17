@@ -13,6 +13,7 @@ import {
 import { Input } from '../components/ui/input'
 import { Button } from '../components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
+import { useToast } from '../hooks/useToast'
 import AccountsService from '../services/accountsService'
 import TransfersService from '../services/transfersService'
 import type { AccountDto, ApiError } from '../types'
@@ -32,6 +33,7 @@ import type { AccountDto, ApiError } from '../types'
  */
 function TransferPage() {
   const navigate = useNavigate()
+  const toast = useToast()
   const [accounts, setAccounts] = useState<AccountDto[]>([])
   const [isLoadingAccounts, setIsLoadingAccounts] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -102,9 +104,9 @@ function TransferPage() {
         data.description || undefined
       )
 
-      // Show success message (will be upgraded to toast in T018)
+      // Show success toast
+      toast.success(`Transfer of $${amount.toFixed(2)} completed successfully!`)
       console.log('Transfer successful:', result)
-      alert(`Transfer of $${amount.toFixed(2)} completed successfully!`)
 
       // Navigate to transactions page with the source account selected
       navigate(`/transactions?accountId=${data.fromAccountId}`)
@@ -132,6 +134,8 @@ function TransferPage() {
         errorMessage = apiErr.message
       }
 
+      // Show error toast
+      toast.error(errorMessage)
       setSubmitError(errorMessage)
       console.error('Transfer error:', error)
     } finally {
