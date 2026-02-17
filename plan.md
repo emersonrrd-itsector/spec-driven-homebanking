@@ -10,7 +10,7 @@
 
 25 atomic tasks organized in 5 phases. Each task is independently deployable and testable. Dependencies are clear; tasks can be parallelized where possible.
 
-**Status**: 2 of 26 tasks complete (T000, T001)  
+**Status**: 3 of 26 tasks complete (T000, T001, T002)  
 **Phases**:
 0. **Bootstrap** (T000): Project scaffold and build verification
 1. **API Foundation** (T001-T010): .NET scaffolding, data layer, REST endpoints, auth
