@@ -10,7 +10,7 @@
 
 25 atomic tasks organized in 5 phases. Each task is independently deployable and testable. Dependencies are clear; tasks can be parallelized where possible.
 
-**Status**: 13 of 26 tasks complete (T000-T012, Phase 1 API Foundation complete, Phase 2 Frontend Foundation in progress!)  
+**Status**: 14 of 26 tasks complete (T000-T014, Phase 1 API Foundation complete, Phase 2 Frontend Foundation in progress!)  
 **Phases**:
 0. **Bootstrap** (T000): Project scaffold and build verification
 1. **API Foundation** (T001-T010): .NET scaffolding, data layer, REST endpoints, auth
@@ -633,19 +633,33 @@ After completing a task (before pushing):
   - Code Quality: 0 build errors, 0 lint errors, 0 TypeScript compilation errors
 
 #### Task T014: Login Page
-- **Status**: pending
+- **Status**: completed
 - **Dependencies**: T013
 - **Estimate**: S
 - **DoD**:
-  - [ ] Form: email + password inputs (both required)
-  - [ ] Validation: email format check, password ≥ 6 chars (client-side)
-  - [ ] shadcn/ui Form component used for layout and error display
-  - [ ] Submit button: calls AuthService.login(), disables during request
-  - [ ] Success: JWT stored, redirected to /dashboard
-  - [ ] Error: displays error message (API response or network error)
-  - [ ] Demo credentials shown as hint/placeholder
-  - [ ] Dark theme ready (shadcn/ui form styling)
-  - [ ] committed
+  - [x] Form: email + password inputs (both required)
+  - [x] Validation: email format check, password ≥ 6 chars (client-side)
+  - [x] shadcn/ui Form component used for layout and error display
+  - [x] Submit button: calls AuthService.login(), disables during request
+  - [x] Success: JWT stored, redirected to /dashboard
+  - [x] Error: displays error message (API response or network error)
+  - [x] Demo credentials shown as hint/placeholder
+  - [x] Dark theme ready (shadcn/ui form styling)
+  - [x] committed
+- **Plan changes**: None - T015 dependencies remain the same (T014 + T005)
+- **Implementation Summary**:
+  - LoginPage.tsx: Full login form with React Hook Form + shadcn/ui Form components
+  - Email input: Required field with regex format validation (`/^[^\s@]+@[^\s@]+\.[^\s@]+$/`)
+  - Password input: Required field with minimum 6 characters validation
+  - Client-side validation with real-time error messages using FormMessage
+  - AuthService.login() integration: Posts credentials to /api/auth, stores JWT in localStorage
+  - Loading state: Button and inputs disabled during API request, shows "Logging in..." spinner
+  - Error handling: Displays API error messages and network errors with user-friendly messaging
+  - Demo credentials: Help text showing admin@homebank.local / demo123, plus input placeholders
+  - Dark theme: Complete Tailwind dark mode styling with slate color palette
+  - Responsive: Works on mobile and desktop with proper spacing and layout
+  - LoginPage.test.tsx: 28 comprehensive unit tests covering form rendering, validation, success, errors, and edge cases
+  - All 8 DoD items verified: 0 build errors, 0 lint errors, 0 TypeScript errors
 
 #### Task T015: Dashboard Page - Account Cards
 - **Status**: pending
