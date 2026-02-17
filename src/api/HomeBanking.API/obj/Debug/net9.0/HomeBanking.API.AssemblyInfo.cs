@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HomeBanking.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+648d2698416cadeb89bdc85347801528219885ec")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+42aaf21bc79cb5e0e25b15256cccbae2d8296538")]
 [assembly: System.Reflection.AssemblyProductAttribute("HomeBanking.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HomeBanking.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
