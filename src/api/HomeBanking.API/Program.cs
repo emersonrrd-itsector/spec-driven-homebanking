@@ -17,7 +17,8 @@ var jwtExpiryHours = int.TryParse(builder.Configuration["JWT_EXPIRY_HOURS"], out
 
 builder.Services
     .AddScoped<JwtTokenService>(sp => new JwtTokenService(jwtSecret, jwtExpiryHours))
-    .AddScoped<IAuthService, AuthService>();
+    .AddScoped<IAuthService, AuthService>()
+    .AddScoped<IAccountService, AccountService>();
 
 builder.Services
     .AddAuthentication(options =>

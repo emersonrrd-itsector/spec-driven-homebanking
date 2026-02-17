@@ -10,7 +10,7 @@
 
 25 atomic tasks organized in 5 phases. Each task is independently deployable and testable. Dependencies are clear; tasks can be parallelized where possible.
 
-**Status**: 4 of 26 tasks complete (T000, T001, T002, T003)  
+**Status**: 6 of 26 tasks complete (T000, T001, T002, T003, T004, T005)  
 **Phases**:
 0. **Bootstrap** (T000): Project scaffold and build verification
 1. **API Foundation** (T001-T010): .NET scaffolding, data layer, REST endpoints, auth
@@ -388,18 +388,29 @@ After completing a task (before pushing):
 - **Plan changes**: T005 can now proceed - authentication middleware ready for protecting account endpoints
 
 #### Task T005: Account Controller - Get Accounts & Balances
-- **Status**: pending
+- **Status**: completed
 - **Dependencies**: T004
 - **Estimate**: M
 - **DoD**:
-  - [ ] GET /api/accounts returns user's accounts with balance
-  - [ ] GET /api/accounts/{id} returns single account detail
-  - [ ] Response DTO: { id, name, balance, currency, lastUpdated }
-  - [ ] Authorized (JWT required)
-  - [ ] Unit tests (200, 401, 404 cases)
-  - [ ] Scalar OpenAPI schema generated and readable
-  - [ ] all tests pass
-  - [ ] committed
+  - [x] GET /api/accounts returns user's accounts with balance
+  - [x] GET /api/accounts/{id} returns single account detail
+  - [x] Response DTO: { id, name, balance, currency, lastUpdated }
+  - [x] Authorized (JWT required)
+  - [x] Unit tests (200, 401, 404 cases)
+  - [x] Scalar OpenAPI schema generated and readable
+  - [x] all tests pass
+  - [x] committed
+- **Implementation Summary**:
+  - Created AccountsController with two endpoints (GET /api/accounts, GET /api/accounts/{id})
+  - Implemented IAccountService + AccountService for business logic
+  - Created response DTOs: AccountDto, AccountsResponse
+  - 31 new tests for Account functionality (AccountsControllerTests: 17, AccountServiceTests: 14)
+  - All 172 tests passing (including 47 additional tests for improved coverage)
+  - Code coverage: 85.21% (exceeds 80% requirement)
+  - User isolation enforced: each user can only access their own accounts
+  - Both endpoints require JWT authorization
+  - ProducesResponseType attributes configured for Scalar OpenAPI documentation
+- **Plan changes**: None - T006 dependencies unchanged, can proceed with Transaction Controller implementation
 
 #### Task T006: Transaction Controller - Get Transactions
 - **Status**: pending
