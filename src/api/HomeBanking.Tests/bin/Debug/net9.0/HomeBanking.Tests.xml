@@ -4,6 +4,11 @@
         <name>HomeBanking.Tests</name>
     </assembly>
     <members>
+        <member name="T:HomeBanking.Tests.Controllers.AuthControllerTests">
+            <summary>
+            Unit tests for AuthController.
+            </summary>
+        </member>
         <member name="T:HomeBanking.Tests.HomeBankingContextTests">
             <summary>
             Unit tests for the HomeBankingContext DbContext.
@@ -232,6 +237,21 @@
         <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Email_Constructor_WithInvalidFormat_ThrowsException">
             <summary>
             Test: Email value object validates format.
+            </summary>
+        </member>
+        <member name="T:HomeBanking.Tests.Services.AuthServiceTests">
+            <summary>
+            Unit tests for AuthService.
+            </summary>
+        </member>
+        <member name="T:HomeBanking.Tests.Services.JwtTokenServiceTests">
+            <summary>
+            Unit tests for JwtTokenService.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.Services.JwtTokenServiceTests.DecodeToken(System.String)">
+            <summary>
+            Helper method to decode and validate token for testing.
             </summary>
         </member>
     </members>

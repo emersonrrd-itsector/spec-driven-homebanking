@@ -1,4 +1,8 @@
+using System.Text;
 using HomeBanking.API.Data;
+using HomeBanking.API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +11,43 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddHomeBankingContext();
 
+// Add authentication services
+var jwtSecret = builder.Configuration["JWT_SECRET"] ?? "demo-secret-key";
+var jwtExpiryHours = int.TryParse(builder.Configuration["JWT_EXPIRY_HOURS"], out var expiryHours) ? expiryHours : 24;
+
+builder.Services
+    .AddScoped<JwtTokenService>(sp => new JwtTokenService(jwtSecret, jwtExpiryHours))
+    .AddScoped<IAuthService, AuthService>();
+
+builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret)),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero,
+        };
+    });
+
+builder.Services.AddControllers();
+
 var app = builder.Build();
+
+// Seed demo data on startup
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<HomeBankingContext>();
+    context.SeedIfEmpty();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -16,6 +56,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
 
 var summaries = new[]
 {

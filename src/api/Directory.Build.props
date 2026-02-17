@@ -39,4 +39,19 @@
     <NoWarn>$(NoWarn);SA1200;SA1633</NoWarn>
   </PropertyGroup>
 
+  <!-- Suppress StyleCop rules for Test projects -->
+  <ItemGroup Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
+    <CompilerVisibleProperty Include="MSBuildProjectName" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
+    <!-- SA1600: Elements should be documented -->
+    <!-- SA1601: Partial elements should be documented -->
+    <!-- SA1309: Field should not begin with underscore -->
+    <!-- SA1310: Field names should not contain underscore -->
+    <!-- SA1101: Prefix local calls with this -->
+    <!-- CS1591: Missing XML comment -->
+    <NoWarn>$(NoWarn);SA1600;SA1601;SA1309;SA1310;SA1101;CS1591</NoWarn>
+  </PropertyGroup>
+
 </Project>

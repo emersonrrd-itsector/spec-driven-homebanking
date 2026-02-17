@@ -364,7 +364,7 @@ After completing a task (before pushing):
 - **Plan changes**: None - T004 dependencies unchanged
 
 #### Task T004: JWT Authentication Middleware
-- **Status**: pending
+- **Status**: in-progress
 - **Dependencies**: T003
 - **Estimate**: M
 - **DoD**:
