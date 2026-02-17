@@ -10,7 +10,7 @@
 
 25 atomic tasks organized in 5 phases. Each task is independently deployable and testable. Dependencies are clear; tasks can be parallelized where possible.
 
-**Status**: 11 of 26 tasks complete (T000-T010, Phase 1 API Foundation complete!)  
+**Status**: 12 of 26 tasks complete (T000-T011, Phase 1 API Foundation complete, Phase 2 Frontend Foundation started!)  
 **Phases**:
 0. **Bootstrap** (T000): Project scaffold and build verification
 1. **API Foundation** (T001-T010): .NET scaffolding, data layer, REST endpoints, auth
@@ -547,18 +547,29 @@ After completing a task (before pushing):
 ### Phase 2: Frontend Foundation (T011-T015)
 
 #### Task T011: React + Vite + TypeScript Project Setup
-- **Status**: pending
+- **Status**: completed
 - **Dependencies**: none (parallel to T001-T010)
 - **Estimate**: M
 - **DoD**:
-  - [ ] Vite project scaffolded with React 19 + TypeScript 5.7
-  - [ ] react-swc-ts configured for fast refresh
-  - [ ] Tailwind CSS 3.4 configured with dark mode (class strategy)
-  - [ ] shadcn/ui initialized (Button, Card, Input, Table, Form components)
-  - [ ] Dark theme as default (dark class on html element)
-  - [ ] builds to dist/ cleanly (`npm run build`)
-  - [ ] no lint warnings (ESLint + @typescript-eslint)
-  - [ ] committed
+  - [x] Vite project scaffolded with React 19 + TypeScript 5.7
+  - [x] react-swc-ts configured for fast refresh
+  - [x] Tailwind CSS 3.4 configured with dark mode (class strategy)
+  - [x] shadcn/ui initialized (Button, Card, Input, Table, Form components)
+  - [x] Dark theme as default (dark class on html element)
+  - [x] builds to dist/ cleanly (`npm run build`)
+  - [x] no lint warnings (ESLint + @typescript-eslint)
+  - [x] committed
+- **Plan changes**: None - T012 dependencies remain the same (T011 + T004)
+- **Implementation Summary**:
+  - Vite 4.5.14 project scaffolded with React 19.2.4 and TypeScript 5.9.3
+  - SWC (@vitejs/plugin-react-swc) configured for optimal fast refresh
+  - Tailwind CSS 3.4.19 configured with dark mode using class strategy
+  - shadcn/ui component library initialized with Button, Card, Input, Label, Form, and Table components
+  - Dark theme applied by default with `class="dark"` on HTML element
+  - All 3 core components working (Components, Form with React Hook Form, Table with all subcomponents)
+  - Build output: 220.71 kB (gzip: 69.28 kB) JavaScript, 12.29 kB (gzip: 3.23 kB) CSS
+  - Validation results: 0 build errors, 0 lint errors, 0 TypeScript compilation errors
+  - Full ESLint and Playwright configuration in place for future test tasks
 
 #### Task T012: API Client Service & Types
 - **Status**: pending
