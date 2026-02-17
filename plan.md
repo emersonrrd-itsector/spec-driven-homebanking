@@ -19,6 +19,268 @@
 
 ---
 
+## Global Definition of Done (DoD)
+
+**CRITICAL PRINCIPLE**: All tasks MUST pass the same gates locally and in CI. If it passes locally, it MUST pass CI. No surprises.
+
+### 1. Universal DoD (Applies to Every Task)
+
+Every task, regardless of component (API, Web, Infrastructure), must satisfy ALL of these before marking complete:
+
+#### 1.1 Code Quality Gates
+
+- [ ] **Zero Build Errors**
+  - API: `dotnet build` exits with code 0, no error messages
+  - Web: `npm run build` exits with code 0, no error messages
+
+- [ ] **Zero Lint Errors** (not warnings—errors only)
+  - API: `dotnet build` produces NO StyleCop errors (warnings allowed, logged for review)
+  - Web: `npm run lint` produces NO ESLint errors in modified files
+
+- [ ] **Zero TypeScript Compilation Errors**
+  - Web: `tsc --noEmit` passes with exit code 0 (in src/ and tests/)
+
+#### 1.2 Testing Gates
+
+- [ ] **New Tests Created for New Functionality**
+  - Every new feature/method must have corresponding unit test(s)
+  - Test-to-code ratio: ≥1 test method per feature method
+  - Test naming: `[Method]_[Scenario]_[ExpectedOutcome]` (e.g., `Transfer_InsufficientBalance_Returns400`)
+
+- [ ] **ALL Tests Pass (New + Existing)**
+  - API: `dotnet test --no-build` passes with exit code 0, all test counts unchanged or increased
+  - Web: `npm run test -- --run` passes with exit code 0, all test counts unchanged or increased
+  - **Key**: No broken existing tests. If a test breaks, fix it or adjust DoD checklist before declaring done.
+
+- [ ] **Code Coverage Maintained/Improved**
+  - API: Coverage report ≥80% (new tests must not reduce coverage)
+  - Web: Coverage report ≥70% (new tests must not reduce coverage)
+  - Tools: xUnit with Coverlet extension (API), Vitest with coverage mode (Web)
+
+#### 1.3 Documentation & Comments
+
+- [ ] **Code Comments Updated** (where relevant)
+  - New public methods: XML doc comments (C#) or JSDoc (TypeScript)
+  - Complex logic: inline comments explaining "why", not "what"
+  - API endpoints: Proper [HttpGet] / [HttpPost] attributes with OpenAPI attributes for Scalar
+
+- [ ] **plan.md Updated**
+  - [ ] Task status changed from `pending` → `in-progress` (when starting)
+  - [ ] Task status changed from `in-progress` → `completed` (when finished)
+  - [ ] `Plan changes:` section in task filled with all modifications to downstream tasks (if any)
+  - [ ] New task dependencies recorded (if discovered)
+  - [ ] Estimate adjusted (if actually took different time than planned)
+
+- [ ] **README/Architecture Docs Updated** (if infrastructure or API contract changed)
+  - New folders, new endpoints, new configuration → document it
+  - New deployment steps → update docker-compose or CI section
+
+#### 1.4 Version Control & Commit
+
+- [ ] **Atomic Commit**
+  - One task = one commit with clear message format:
+    - Feature task: `feat(T00X): short description`
+    - Test task: `test(T00X): short description`
+    - Docs task: `docs(T00X): short description`
+    - Fix task: `fix(T00X): short description`
+  - Commit includes: code changes + updated plan.md + updated README (if applicable)
+
+- [ ] **Branch Clean & Rebased** (before final push)
+  - Branch name: `feature/T00X-kebab-case-title`
+  - No merge conflicts
+  - Rebased on latest `main` (recommended, not required for this learning project)
+
+### 2. Local Validation Commands
+
+Developers run these commands in order to verify DoD before pushing:
+
+**API/.NET Tasks:**
+```bash
+cd src/api
+dotnet build                    # Check: 0 errors, lint errors allowed (log them)
+dotnet test --no-build          # Check: all tests pass, exit code = 0
+dotnet test --no-build /p:CollectCoverage=true  # Check: coverage ≥80%
+cd ../..
+```
+
+**Web/React Tasks:**
+```bash
+cd src/web
+npm run build                   # Check: 0 errors, exit code = 0
+npm run lint                    # Check: 0 ESLint errors
+tsc --noEmit                    # Check: 0 TypeScript errors
+npm run test -- --run           # Check: all tests pass, exit code = 0
+npm run test -- --run --coverage # Check: coverage ≥70%
+cd ../..
+```
+
+**Infrastructure Tasks:**
+```bash
+# For Docker tasks:
+docker compose up -d            # Check: all services healthy in <30s
+docker compose logs api         # Check: /health endpoint responds 200 OK
+docker compose down -v
+
+# For CI tasks:
+# (CI workflow syntax validated locally, reviewed before merge)
+```
+
+**All Tasks:**
+```bash
+git status                      # Check: modified files are planned/documented
+git add .
+git commit -m "feat(T00X): description"  # Check: commit succeeds
+npm run test -- --run 2>/dev/null && echo "Local validation GREEN ✓" || echo "FAILED ✗"
+```
+
+### 3. CI Pipeline Equivalents (GitHub Actions)
+
+The CI workflow MUST run the exact same commands as local validation. No surprises.
+
+**`.github/workflows/ci.yml` jobs:**
+
+```yaml
+build-api:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+    - run: cd src/api && dotnet build
+    - run: cd src/api && dotnet test --no-build
+    - run: cd src/api && dotnet test --no-build /p:CollectCoverage=true
+    # (All commands from "Local Validation" above)
+
+build-web:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '22.x'
+    - run: cd src/web && npm install
+    - run: cd src/web && npm run build
+    - run: cd src/web && npm run lint
+    - run: cd src/web && tsc --noEmit
+    - run: cd src/web && npm run test -- --run
+    - run: cd src/web && npm run test -- --run --coverage
+    # (All commands from "Local Validation" above)
+
+e2e-tests:
+  runs-on: ubuntu-latest
+  needs: [build-api, build-web]
+  steps:
+    - uses: actions/checkout@v4
+    - run: docker compose up -d
+    - run: docker compose logs api
+    - run: cd src/web && npm install && npx playwright install
+    - run: cd src/web && npm run e2e
+    - run: docker compose down -v
+```
+
+**Gate Rule**: All jobs must pass (no allowed failures). PR cannot merge if any job fails.
+
+### 4. Best Practices for AI-Assisted Development DoD
+
+When using Copilot/AI for code generation, add these checks:
+
+- [ ] **AI-Generated Code Reviewed**
+  - Read the generated code; understand what it does
+  - Check for security issues: hardcoded secrets, SQL injection, XSS vulnerabilities
+  - Check for performance issues: nested loops, inefficient queries
+
+- [ ] **Generated Tests Are Not Trivial**
+  - Generated tests must test edge cases, not just happy path
+  - Verify tests actually fail if the feature is broken (mutation testing mindset)
+
+- [ ] **No Copy-Paste of Boilerplate**
+  - Each file or module should have a clear purpose, not duplicate code
+  - Use DRY principle: extract repeated patterns into shared utilities
+
+- [ ] **Comments Clarify AI Assistance**
+  - If significant logic is AI-generated, add comment: "Generated with Copilot; reviewed for [security/performance/clarity]"
+  - Helps future maintainers understand confidence level in code
+
+- [ ] **Error Handling Is Explicit**
+  - AI often generates happy-path code; explicitly test error cases
+  - Ensure try-catch, null checks, validation are present
+
+### 5. Task Completion Review Process
+
+After completing a task (before pushing):
+
+1. **Self-Review Checklist** (5 min)
+   - [ ] Read my own code: Does it make sense? Would I understand it in 3 months?
+   - [ ] Are there any TODOs or FIXMEs left? (Delete or create follow-up task)
+   - [ ] Did I use meaningful variable names? (No `x`, `temp`, `data`)
+
+2. **Run Local Validation** (2-5 min per component)
+   ```bash
+   # For API tasks:
+   cd src/api && dotnet build && dotnet test --no-build && dotnet test --no-build /p:CollectCoverage=true
+   # For Web tasks:
+   cd src/web && npm run build && npm run lint && tsc --noEmit && npm run test -- --run
+   ```
+
+3. **Verify Plan Updates** (2 min)
+   - [ ] plan.md status updated to `completed`
+   - [ ] Estimate matches reality (if not, update)
+   - [ ] `Plan changes:` section filled with any impacts to downstream tasks
+   - [ ] New dependencies or risks documented
+
+4. **Commit & Push** (1 min)
+   ```bash
+   git add .
+   git commit -m "feat(T00X): clear, concise description"
+   git push origin feature/T00X-branch-name
+   ```
+
+5. **Review Plan for Task Impacts** (5 min)
+   - [ ] Did this task affect any downstream tasks?
+   - [ ] Do dependencies still make sense? (e.g., if T005 is now complete, can T006 start now?)
+   - [ ] Did architecture change? (e.g., new folder, new model, new endpoint?)
+   - [ ] Update plan.md `Plan changes:` sections in all affected downstream tasks
+   - [ ] Example: "T007 now depends on T006 (moved from T005) because transfer validation requires transaction DTOs"
+
+6. **Wait for CI to Green** (5-30 min)
+   - Task is NOT done until GitHub Actions CI workflow passes
+   - If CI fails: fix locally, re-run local validation, commit, push, re-run CI
+   - Review CI logs if failure is unclear
+
+---
+
+## Execution Workflow
+
+### Before Each Task
+1. Create branch: `git checkout -b feature/T00X-task-title`
+2. Update plan.md: status → `in-progress`
+3. Commit: `git commit -m "docs(T00X): mark in-progress"`
+
+### During Task
+1. Write code following C# / React best practices
+2. Write tests for new functionality (before or after, both valid)
+3. Update comments and docs
+4. Verify folder structure and naming match spec.md
+
+### Before Marking Complete
+1. Run full local validation (see section 2 above)
+2. Review own code (see section 5 above)
+3. Update plan.md: status → `completed`, fill `Plan changes:`
+4. Perform task impact review (see section 5 above)
+5. Commit all changes
+6. Push to GitHub
+7. Wait for CI to pass (green check on commit) ← **Task not done until here**
+8. Merge to main (or update tracking in plan.md)
+
+### After Each Task (Weekly Review)
+- Review all completed tasks
+- Check if plan adjustments needed
+- Update future task estimates if patterns emerge
+- Document learnings in README or CONTRIBUTING.md
+
+---
+
 ## Task Breakdown
 
 ### Phase 1: API Foundation (T001-T010)
@@ -500,35 +762,61 @@ T011 (React setup) [parallel to T001]
 | **Week 2** | Frontend & E2E | T011-T022 | React app with UI, unit tests, E2E tests (dashboard + transfer) |
 | **Week 3** | Infrastructure | T023-T025 | Docker Compose, GitHub Actions CI, documentation |
 
-**Deployment Ready**: End of Week 3
+**Deployment Ready**: End of Week 3 → **All CI Tests Green ✓**
 
 ---
 
-## Success Criteria
+## Success Criteria (Project-Level)
 
-- [ ] Solution builds cleanly: `dotnet build` (no errors/warnings)
-- [ ] All API unit tests pass: `dotnet test` (>80% coverage)
-- [ ] All frontend unit tests pass: `npm run test` (>70% coverage)
-- [ ] All E2E tests pass: `npm run e2e` (3 critical flows)
-- [ ] Docker compose runs locally: `docker compose up` (all services healthy in <30s)
-- [ ] GitHub Actions CI passes on PR
-- [ ] spec.md + README.md complete and accurate
-- [ ] Code follows C# conventions (StyleCop >0 warnings)
-- [ ] Code follows TypeScript + React best practices (ESLint >0 warnings)
-- [ ] All PRs follow Definition of Done framework
+A task is complete when:
+
+1. ✅ All DoD gates pass (see "Global Definition of Done" section)
+2. ✅ GitHub Actions CI workflow passes (green check on commit)
+3. ✅ plan.md updated with task status, estimate, and plan changes
+4. ✅ Code reviewed for AI-assistance quality (if applicable)
+
+**Project Success** (End of Week 3):
+- [ ] All 25 tasks completed (`completed` status in plan.md)
+- [ ] All unit tests pass: API >80% coverage, Web >70% coverage
+- [ ] All E2E tests pass: 3 critical flows (login, dashboard, transfer)
+- [ ] Docker compose runs locally, all services healthy
+- [ ] GitHub Actions CI GREEN on main branch
+- [ ] spec.md + README.md + CONTRIBUTING.md complete
+- [ ] Zero lint errors (StyleCop, ESLint)
+- [ ] Zero TypeScript compilation errors
+- [ ] Solution ready for production deployment (or next phase)
 
 ---
 
-## Execution Rules
+## Quick Reference: Local Validation Checklist
 
-1. **One task at a time**: Mark as in-progress, complete all DoD items, commit, mark as completed
-2. **Atomic commits**: Each task = one commit (no mega-commits)
-3. **Branch per task**: `feature/T00X-task-title` (keeps history clean)
-4. **Commit message**: `feat(T00X): task title` or `test(T00X): task title`
-5. **All tests before commit**: `dotnet test` + `npm run test` (in respective projects)
-6. **No TypeScript errors**: `tsc --noEmit` passes
-7. **No lint warnings**: `dotnet build` reports no StyleCop issues; `npm run lint` reports no ESLint issues
+Print this and check before each commit:
+
+```
+BEFORE EACH COMMIT:
+  API Tasks:
+    [ ] cd src/api && dotnet build (exit code 0)
+    [ ] cd src/api && dotnet test --no-build (all pass)
+    [ ] cd src/api && dotnet test --no-build /p:CollectCoverage=true (≥80%)
+    [ ] plan.md updated (status, estimate, changes)
+
+  Web Tasks:
+    [ ] cd src/web && npm run build (exit code 0)
+    [ ] cd src/web && npm run lint (0 ESLint errors)
+    [ ] cd src/web && tsc --noEmit (0 TypeScript errors)
+    [ ] cd src/web && npm run test -- --run (all pass)
+    [ ] cd src/web && npm run test -- --run --coverage (≥70%)
+    [ ] plan.md updated (status, estimate, changes)
+
+  All Tasks:
+    [ ] git commit -m "feat/test/docs(T00X): description"
+    [ ] git push origin feature/T00X-branch
+    [ ] Wait for CI workflow to pass (green check)
+    [ ] Merge or mark ready for review
+```
 
 ---
 
 **Ready to execute? Pick T001 and start building! 🚀**
+
+**Remember**: If it passes locally, it MUST pass CI. No surprises.
