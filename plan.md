@@ -323,28 +323,38 @@ After completing a task (before pushing):
 - **Plan changes**: None - T002 dependencies unchanged
 
 #### Task T002: EF Core InMemory Context Setup
-- **Status**: pending
-- **Dependencies**: T001 (now requires Domain project from T001)
+- **Status**: completed
+- **Dependencies**: T001 (Domain project required)
 - **Estimate**: M
 - **DoD**:
-  - [ ] DbContext created with InMemory provider
-  - [ ] Models: User, Account, Transaction defined
-  - [ ] Seed data initialization (2-3 accounts, ~15 transactions per account)
-  - [ ] DbContext tests validate seeding
-  - [ ] all tests pass
-  - [ ] committed
+  - [x] DbContext created with InMemory provider (HomeBankingContext.cs)
+  - [x] Models: User, Account, Transaction defined in HomeBanking.Domain
+  - [x] Seed data initialization (1 user, 2 accounts, 15 transactions each)
+  - [x] DbContext tests validate seeding (16 comprehensive tests)
+  - [x] all tests pass (16/16 passing)
+  - [x] committed with message "feat(T002): EF Core InMemory Context Setup"
+- **Plan changes**: T003 can now proceed - domain models are ready but in different organization (models in Domain project, DbContext in API). T003 scope adjusted: focus shifts to aggregates and validation rules rather than basic model definition.
+- **Implementation Summary**:
+  - Created domain models: User.cs, Account.cs, Transaction.cs with proper documentation
+  - Implemented HomeBankingContext with EF Core Fluent API configuration and relationships
+  - Created ServiceCollectionExtensions.cs for DI registration
+  - Updated Program.cs to register DbContext
+  - Implemented SeedIfEmpty() method for test data generation (password hashed with SHA256)
+  - 16 unit tests covering initialization, relationships, cascade delete, and data integrity
+  - All StyleCop requirements met, zero build errors
 
 #### Task T003: Core Domain Models & Value Objects
 - **Status**: pending
-- **Dependencies**: T002
+- **Dependencies**: T002 (completed)
 - **Estimate**: M
 - **DoD**:
-  - [ ] User aggregate (Id, Email, PasswordHash)
-  - [ ] Account aggregate (Id, UserId, Balance, Currency, AccountNumber)
-  - [ ] Transaction DTO (Id, AccountId, Amount, Date, Description, Category, Type)
+  - [ ] User aggregate (Id, Email, PasswordHash) - **COMPLETED in T002**
+  - [ ] Account aggregate (Id, UserId, Balance, Currency, AccountNumber) - **COMPLETED in T002**
+  - [ ] Transaction DTO (Id, AccountId, Amount, Date, Description, Category, Type) - **COMPLETED in T002**
   - [ ] Validation rules defined (balance ≥ 0, transfer amount > 0, etc.)
   - [ ] unit tests pass
   - [ ] committed
+- **Plan changes**: T003 scope reduced - models already defined in T002. Focus shifts to: (1) adding validation attributes/methods to models, (2) creating value objects if needed, (3) adding aggregate root patterns/methods, (4) ensuring all validation rules tested.
 
 #### Task T004: JWT Authentication Middleware
 - **Status**: pending
