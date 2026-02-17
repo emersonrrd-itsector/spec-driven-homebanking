@@ -4,6 +4,75 @@
         <name>HomeBanking.API</name>
     </assembly>
     <members>
+        <member name="T:HomeBanking.API.Data.HomeBankingContext">
+            <summary>
+            Entity Framework Core DbContext for the HomeBanking application.
+            Configured to use InMemory provider.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.API.Data.HomeBankingContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{HomeBanking.API.Data.HomeBankingContext})">
+            <summary>
+            Initializes a new instance of the <see cref="T:HomeBanking.API.Data.HomeBankingContext"/> class.
+            </summary>
+            <param name="options">The context options.</param>
+        </member>
+        <member name="P:HomeBanking.API.Data.HomeBankingContext.Users">
+            <summary>
+            Gets the Users DbSet.
+            </summary>
+        </member>
+        <member name="P:HomeBanking.API.Data.HomeBankingContext.Accounts">
+            <summary>
+            Gets the Accounts DbSet.
+            </summary>
+        </member>
+        <member name="P:HomeBanking.API.Data.HomeBankingContext.Transactions">
+            <summary>
+            Gets the Transactions DbSet.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.API.Data.HomeBankingContext.SeedIfEmpty">
+            <summary>
+            Seeds demo data into the database if it's empty.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.API.Data.HomeBankingContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Configures the model relationships and constraints using Fluent API.
+            </summary>
+            <param name="modelBuilder">The model builder.</param>
+        </member>
+        <member name="M:HomeBanking.API.Data.HomeBankingContext.GenerateSampleTransactions(System.Guid,System.DateTime)">
+            <summary>
+            Generates ~15 sample transactions for an account.
+            </summary>
+            <param name="accountId">The account ID.</param>
+            <param name="baseDate">The base date for transactions.</param>
+            <returns>A list of sample transactions.</returns>
+        </member>
+        <member name="M:HomeBanking.API.Data.HomeBankingContext.HashPassword(System.String)">
+            <summary>
+            Hashes a password using SHA256 (for demo purposes only; production should use bcrypt).
+            </summary>
+            <param name="password">The password to hash.</param>
+            <returns>The hexadecimal string representation of the hash.</returns>
+        </member>
+        <member name="T:HomeBanking.API.Data.ServiceCollectionExtensions">
+            <summary>
+            Extension methods for configuring HomeBanking data services.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.API.Data.ServiceCollectionExtensions.AddHomeBankingContext(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the HomeBankingContext to the dependency injection container using InMemory provider.
+            </summary>
+            <remarks>
+            This method configures EF Core with the InMemory database provider for development and testing.
+            Future migrations to SQL Server or PostgreSQL can be made by changing the provider here.
+            </remarks>
+            <param name="services">The service collection.</param>
+            <returns>The service collection for method chaining.</returns>
+        </member>
         <member name="T:WeatherForecast">
             <summary>
             Weather forecast record.

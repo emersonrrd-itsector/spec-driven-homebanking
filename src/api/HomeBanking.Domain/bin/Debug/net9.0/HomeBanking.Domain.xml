@@ -4,9 +4,129 @@
         <name>HomeBanking.Domain</name>
     </assembly>
     <members>
+        <member name="T:HomeBanking.Domain.Account">
+            <summary>
+            Represents a bank account owned by a user.
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.Account.Id">
+            <summary>
+            Gets the unique identifier for the account.
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.Account.UserId">
+            <summary>
+            Gets or sets the user ID (owner of the account, foreign key).
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.Account.Name">
+            <summary>
+            Gets or sets the friendly name of the account (e.g., "Checking", "Savings").
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.Account.Balance">
+            <summary>
+            Gets or sets the current balance of the account in the specified currency.
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.Account.Currency">
+            <summary>
+            Gets or sets the currency code for the account (e.g., "USD", "EUR").
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.Account.AccountNumber">
+            <summary>
+            Gets or sets the account number (unique identifier used for transfers).
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.Account.LastUpdated">
+            <summary>
+            Gets or sets the timestamp of the last update to the account (balance change, transfer, etc.).
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.Account.User">
+            <summary>
+            Gets or sets the user who owns this account (navigation property).
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.Account.Transactions">
+            <summary>
+            Gets the collection of transactions associated with this account.
+            </summary>
+        </member>
         <member name="T:HomeBanking.Domain.DomainMarker">
             <summary>
             Domain project for HomeBanking application - contains aggregates, entities, and value objects.
+            </summary>
+        </member>
+        <member name="T:HomeBanking.Domain.Transaction">
+            <summary>
+            Represents a transaction (debit or credit) on an account.
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.Transaction.Id">
+            <summary>
+            Gets the unique identifier for the transaction.
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.Transaction.AccountId">
+            <summary>
+            Gets or sets the account ID this transaction belongs to (foreign key).
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.Transaction.Amount">
+            <summary>
+            Gets or sets the transaction amount (absolute value; sign determined by Type).
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.Transaction.Date">
+            <summary>
+            Gets or sets the date and time the transaction occurred.
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.Transaction.Description">
+            <summary>
+            Gets or sets the human-readable description of the transaction (e.g., "Grocery shopping").
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.Transaction.Category">
+            <summary>
+            Gets or sets the category of the transaction (e.g., "Groceries", "Utilities", "Entertainment").
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.Transaction.Type">
+            <summary>
+            Gets or sets the transaction type: "Debit" (outgoing) or "Credit" (incoming).
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.Transaction.Account">
+            <summary>
+            Gets or sets the account this transaction belongs to (navigation property).
+            </summary>
+        </member>
+        <member name="T:HomeBanking.Domain.User">
+            <summary>
+            Represents a user of the HomeBanking application.
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.User.Id">
+            <summary>
+            Gets the unique identifier for the user.
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.User.Email">
+            <summary>
+            Gets or sets the email address of the user (unique).
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.User.PasswordHash">
+            <summary>
+            Gets or sets the SHA-256 hash of the user's password (for demo purposes; production should use bcrypt).
+            </summary>
+        </member>
+        <member name="P:HomeBanking.Domain.User.Accounts">
+            <summary>
+            Gets the collection of accounts owned by this user.
             </summary>
         </member>
     </members>

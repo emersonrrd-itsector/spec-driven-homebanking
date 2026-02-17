@@ -4,15 +4,97 @@
         <name>HomeBanking.Tests</name>
     </assembly>
     <members>
-        <member name="T:HomeBanking.Tests.UnitTest1">
+        <member name="T:HomeBanking.Tests.HomeBankingContextTests">
             <summary>
-            Placeholder unit tests for the HomeBanking API.
+            Unit tests for the HomeBankingContext DbContext.
+            Validates initialization, seed data, and relationships.
             </summary>
         </member>
-        <member name="M:HomeBanking.Tests.UnitTest1.Test1">
+        <member name="M:HomeBanking.Tests.HomeBankingContextTests.Initialize_ContextCreatedSuccessfully">
             <summary>
-            Placeholder test method.
+            Test: DbContext initializes without errors.
             </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.HomeBankingContextTests.Seed_UserCreatedInDatabase">
+            <summary>
+            Test: Seed data is populated with exactly one user.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.HomeBankingContextTests.Seed_AccountsCreatedForUser">
+            <summary>
+            Test: Seed data creates exactly 2 accounts.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.HomeBankingContextTests.Seed_TransactionsCreatedPerAccount">
+            <summary>
+            Test: Seed data creates ~15 transactions per account.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.HomeBankingContextTests.Seed_AccountBalancesSetCorrectly">
+            <summary>
+            Test: Account balances are seeded correctly.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.HomeBankingContextTests.Relationships_UserHasAccounts">
+            <summary>
+            Test: User→Accounts relationship is correctly configured.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.HomeBankingContextTests.Relationships_AccountHasTransactions">
+            <summary>
+            Test: Account→Transactions relationship is correctly configured.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.HomeBankingContextTests.Seed_TransactionCategoriesPopulated">
+            <summary>
+            Test: Transaction categories are populated with expected values.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.HomeBankingContextTests.Seed_TransactionTypesValid">
+            <summary>
+            Test: Transaction types are either "Debit" or "Credit".
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.HomeBankingContextTests.Seed_TransactionAmountsValid">
+            <summary>
+            Test: All transactions have valid amounts (greater than 0).
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.HomeBankingContextTests.Seed_PasswordHashedNotPlainText">
+            <summary>
+            Test: Password hash is stored (not plain text).
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.HomeBankingContextTests.Seed_LastUpdatedTimestampsSet">
+            <summary>
+            Test: Account last updated timestamps are set.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.HomeBankingContextTests.AddUser_UserAddedToDatabase">
+            <summary>
+            Test: Add a new user and verify it's persisted.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.HomeBankingContextTests.AddAccount_AccountAssociatedWithUser">
+            <summary>
+            Test: Add a new account and verify it's associated with a user.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.HomeBankingContextTests.AddTransaction_TransactionAssociatedWithAccount">
+            <summary>
+            Test: Add a transaction and verify it's associated with an account.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.HomeBankingContextTests.OnDelete_CascadeDeletesTransactions">
+            <summary>
+            Test: Cascade delete removes transactions when account is deleted.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.HomeBankingContextTests.CreateTestContext">
+            <summary>
+            Creates a new in-memory DbContext instance for testing.
+            </summary>
+            <returns>A new HomeBankingContext configured with InMemory database.</returns>
         </member>
     </members>
 </doc>
