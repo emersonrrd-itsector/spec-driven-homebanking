@@ -96,5 +96,143 @@
             </summary>
             <returns>A new HomeBankingContext configured with InMemory database.</returns>
         </member>
+        <member name="T:HomeBanking.Tests.ModelAggregateBehaviorTests">
+            <summary>
+            Unit tests for domain model aggregates and value objects.
+            Validates business rules, validation logic, and aggregate behavior.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.User_ValidateEmailFormat_WithValidEmail_ReturnsTrue">
+            <summary>
+            Test: User can validate email format correctly.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.User_ValidateEmailFormat_WithInvalidEmail_ReturnsFalse">
+            <summary>
+            Test: User validation fails for invalid email format.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.User_PasswordHashMatches_WithCorrectPassword_ReturnsTrue">
+            <summary>
+            Test: User can verify correct password.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.User_PasswordHashMatches_WithIncorrectPassword_ReturnsFalse">
+            <summary>
+            Test: User password verification fails for incorrect password.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Account_CanWithdraw_WithSufficientBalance_ReturnsTrue">
+            <summary>
+            Test: Account can withdraw with sufficient balance.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Account_CanWithdraw_WithInsufficientBalance_ReturnsFalse">
+            <summary>
+            Test: Account cannot withdraw with insufficient balance.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Account_CanWithdraw_WithEntireBalance_ReturnsTrue">
+            <summary>
+            Test: Account can withdraw entire balance.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Account_CanWithdraw_WithInvalidAmount_ReturnsFalse(System.Decimal)">
+            <summary>
+            Test: Account cannot withdraw zero or negative amount.
+            </summary>
+            <param name="amount">The withdrawal amount to test.</param>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Account_CanWithdraw_WhenInactive_ReturnsFalse">
+            <summary>
+            Test: Account cannot withdraw when inactive.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Account_Withdraw_UpdatesBalanceAndCreatesTransaction">
+            <summary>
+            Test: Withdraw successfully updates balance and creates transaction.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Account_Withdraw_WithInsufficientBalance_ThrowsException">
+            <summary>
+            Test: Withdraw throws exception when insufficient balance.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Account_Deposit_UpdatesBalanceAndCreatesTransaction">
+            <summary>
+            Test: Deposit successfully updates balance and creates transaction.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Account_CanTransferTo_WithSufficientBalance_ReturnsTrue">
+            <summary>
+            Test: Account can transfer to different account with sufficient balance.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Account_CanTransferTo_ToSameAccount_ReturnsFalse">
+            <summary>
+            Test: Account cannot transfer to itself.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Account_CanTransferTo_ToDifferentCurrencyAccount_ReturnsFalse">
+            <summary>
+            Test: Account cannot transfer to different currency account.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Account_TransferTo_UpdatesBothAccountsAndCreatesTransactions">
+            <summary>
+            Test: Transfer successfully updates both accounts and creates transactions.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Transaction_ValidateAmount_WithInvalidAmount_ReturnsFalse">
+            <summary>
+            Test: Transaction amount validation - must be greater than zero.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Transaction_ValidateDate_WithFutureDate_ReturnsFalse">
+            <summary>
+            Test: Transaction date validation - cannot be in the future.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Transaction_ValidateDate_WithPastOrCurrentDate_ReturnsTrue">
+            <summary>
+            Test: Transaction date validation - can be in the past or present.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Transaction_AffectsBalance_WithValidType_ReturnsTrue(System.String)">
+            <summary>
+            Test: Transaction affects balance for both debit and credit.
+            </summary>
+            <param name="transactionType">The transaction type (Debit or Credit) to test.</param>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Account_ValidateBalance_AfterMultipleOperations_IsValid">
+            <summary>
+            Test: Account balance cannot be negative after multiple operations.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.User_GetAccountById_WithExistingAccount_ReturnsAccount">
+            <summary>
+            Test: User can get account by ID from their collection.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Account_ValidateCurrency_WithValidCurrency_ReturnsTrue">
+            <summary>
+            Test: Account currency validation.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Money_Constructor_WithNegativeAmount_ThrowsException">
+            <summary>
+            Test: Money value object prevents negative amounts.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Money_Constructor_WithInvalidCurrency_ThrowsException">
+            <summary>
+            Test: Money value object validates currency format.
+            </summary>
+        </member>
+        <member name="M:HomeBanking.Tests.ModelAggregateBehaviorTests.Email_Constructor_WithInvalidFormat_ThrowsException">
+            <summary>
+            Test: Email value object validates format.
+            </summary>
+        </member>
     </members>
 </doc>
