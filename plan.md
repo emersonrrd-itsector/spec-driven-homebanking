@@ -10,7 +10,7 @@
 
 25 atomic tasks organized in 5 phases. Each task is independently deployable and testable. Dependencies are clear; tasks can be parallelized where possible.
 
-**Status**: 9 of 26 tasks complete (T000, T001, T002, T003, T004, T005, T006, T007, T008)  
+**Status**: 10 of 26 tasks complete (T000, T001, T002, T003, T004, T005, T006, T007, T008, T009)  
 **Phases**:
 0. **Bootstrap** (T000): Project scaffold and build verification
 1. **API Foundation** (T001-T010): .NET scaffolding, data layer, REST endpoints, auth
@@ -494,16 +494,28 @@ After completing a task (before pushing):
   - All 253 tests passing (238 previous + 15 new), 0 build errors, 0 lint warnings
 
 #### Task T009: Health Check Endpoint
-- **Status**: pending
+- **Status**: completed
 - **Dependencies**: T001
 - **Estimate**: S
 - **DoD**:
-  - [ ] GET /health returns { status: "healthy", timestamp, version }
-  - [ ] GET /health/ready checks database connectivity
-  - [ ] Unauthenticated (public endpoint)
-  - [ ] Unit tests (200 response, JSON format)
-  - [ ] all tests pass
-  - [ ] committed
+  - [x] GET /health returns { status: "healthy", timestamp, version }
+  - [x] GET /health/ready checks database connectivity
+  - [x] Unauthenticated (public endpoints with [AllowAnonymous])
+  - [x] Unit tests (200/503 responses, JSON format, timestamps)
+  - [x] all tests pass (264 total passing)
+  - [x] committed with message "feat(T009): Health Check Endpoint"
+- **Plan changes**: None - T010 (API Error Response Standardization) can now proceed
+- **Implementation Summary**:
+  - Created HealthController with two public endpoints
+  - GET /api/health: Returns 200 OK with { status: "healthy", timestamp: ISO8601 UTC, version: "1.0.0" }
+  - GET /api/health/ready: Checks database connectivity, returns 200 if ready or 503 if not
+  - Created HealthResponse DTO (Status, Timestamp, Version)
+  - Created ReadinessResponse DTO (Status, Timestamp, Details)
+  - Both endpoints are public (no JWT required, [AllowAnonymous] attributes)
+  - Database check uses DbContext.Database.CanConnectAsync() + FirstOrDefaultAsync() query
+  - Comprehensive error handling with error details on 503 responses
+  - 11 comprehensive unit tests: health endpoint (5 tests), readiness endpoint (5 tests), null context validation (1 test)
+  - All 264 tests passing (253 previous + 11 new), 0 build errors, 0 lint warnings
 
 #### Task T010: API Error Response Standardization
 - **Status**: pending
