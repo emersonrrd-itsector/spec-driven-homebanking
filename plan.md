@@ -10,7 +10,9 @@
 
 25 atomic tasks organized in 5 phases. Each task is independently deployable and testable. Dependencies are clear; tasks can be parallelized where possible.
 
+**Status**: 1 of 26 tasks complete (T000)  
 **Phases**:
+0. **Bootstrap** (T000): Project scaffold and build verification
 1. **API Foundation** (T001-T010): .NET scaffolding, data layer, REST endpoints, auth
 2. **Frontend Foundation** (T011-T015): React setup, layout, login, dashboard
 3. **Transaction & Transfer UI** (T016-T018): Tables, forms, notifications
@@ -283,23 +285,45 @@ After completing a task (before pushing):
 
 ## Task Breakdown
 
-### Phase 1: API Foundation (T001-T010)
+### Phase 0: Bootstrap (T000)
 
-#### Task T001: .NET 9 Project Scaffolding
-- **Status**: pending
+#### Task T000: Project Scaffold & Build Verification
+- **Status**: completed
 - **Dependencies**: none
 - **Estimate**: S
 - **DoD**: 
-  - [ ] Solution with 3 projects: API, Domain, Tests scaffolded
-  - [ ] Global usings configured
-  - [ ] Directory.Build.props with common settings
+  - [x] Folder structure created (src/api, src/web)
+  - [x] .NET 9 solution scaffolded with global.json (9.0.100)
+  - [x] API project (HomeBanking.API, WebAPI template)
+  - [x] Tests project (HomeBanking.Tests, xUnit)
+  - [x] React+Vite+TypeScript project scaffolded in src/web
+  - [x] npm install completed, 176 packages
+  - [x] dotnet build succeeds with 0 errors
+  - [x] npm run build succeeds with 0 errors
+  - [x] Committed with message "T000: project scaffold and build verification"
+- **Plan changes**: T001 scope updated—solution structure now ready, focus shifts to adding Domain project and configuring shared settings (Directory.Build.props, global usings)
+
+---
+
+### Phase 1: API Foundation (T001-T010)
+
+#### Task T001: .NET Configuration & Domain Project Setup
+- **Status**: pending
+- **Dependencies**: T000
+- **Estimate**: S
+- **DoD**: 
+  - [ ] Domain project created (HomeBanking.Domain class library)
+  - [ ] Domain project added to solution
+  - [ ] API project references Domain project
+  - [ ] Global usings configured in Directory.Build.props
+  - [ ] Directory.Build.props with common settings (LangVersion, Nullable, etc.)
   - [ ] builds cleanly (`dotnet build`)
   - [ ] no lint warnings (StyleCop)
   - [ ] committed
 
 #### Task T002: EF Core InMemory Context Setup
 - **Status**: pending
-- **Dependencies**: T001
+- **Dependencies**: T001 (now requires Domain project from T001)
 - **Estimate**: M
 - **DoD**:
   - [ ] DbContext created with InMemory provider
@@ -758,6 +782,7 @@ T011 (React setup) [parallel to T001]
 
 | Week | Focus | Tasks | Deliverables |
 |------|-------|-------|--------------|
+| **Week 0** | Bootstrap | T000 | Project scaffold, build verification ✓ |
 | **Week 1** | API Foundation | T001-T010 | .NET solution with all REST endpoints, unit tests, health check |
 | **Week 2** | Frontend & E2E | T011-T022 | React app with UI, unit tests, E2E tests (dashboard + transfer) |
 | **Week 3** | Infrastructure | T023-T025 | Docker Compose, GitHub Actions CI, documentation |
@@ -771,12 +796,13 @@ T011 (React setup) [parallel to T001]
 A task is complete when:
 
 1. ✅ All DoD gates pass (see "Global Definition of Done" section)
-2. ✅ GitHub Actions CI workflow passes (green check on commit)
+2. ✅ GitHub Actions CI workflow passes (green check on commit) *or CI not applicable for infra tasks*
 3. ✅ plan.md updated with task status, estimate, and plan changes
 4. ✅ Code reviewed for AI-assistance quality (if applicable)
 
 **Project Success** (End of Week 3):
-- [ ] All 25 tasks completed (`completed` status in plan.md)
+- [x] T000 completed (project scaffold, build verified)
+- [ ] All 25 tasks (T001-T025) completed (`completed` status in plan.md)
 - [ ] All unit tests pass: API >80% coverage, Web >70% coverage
 - [ ] All E2E tests pass: 3 critical flows (login, dashboard, transfer)
 - [ ] Docker compose runs locally, all services healthy
