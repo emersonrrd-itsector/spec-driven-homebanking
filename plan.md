@@ -10,7 +10,7 @@
 
 25 atomic tasks organized in 5 phases. Each task is independently deployable and testable. Dependencies are clear; tasks can be parallelized where possible.
 
-**Status**: 15 of 26 tasks complete (T000-T015, Phase 1 API Foundation complete, Phase 2 Frontend Foundation in progress!)  
+**Status**: 16 of 26 tasks complete (T000-T016, Phase 1 API Foundation complete, Phase 2 Frontend Foundation nearing completion!)  
 **Phases**:
 0. **Bootstrap** (T000): Project scaffold and build verification
 1. **API Foundation** (T001-T010): .NET scaffolding, data layer, REST endpoints, auth
@@ -697,22 +697,37 @@ After completing a task (before pushing):
 ### Phase 3: Transaction & Transfer UI (T016-T018)
 
 #### Task T016: Transactions Page - Table + Filters
-- **Status**: pending
+- **Status**: completed
 - **Dependencies**: T015, T006
 - **Estimate**: M
 - **DoD**:
-  - [ ] Account selector dropdown (populated from accounts list)
-  - [ ] Calls getTransactions(accountId) on load and account change
-  - [ ] shadcn/ui Table with columns: Date, Description, Category, Amount
-  - [ ] Category badges (colored by category: Food=red, Utilities=blue, etc.)
-  - [ ] Category filter selector (select from predefined categories)
-  - [ ] Pagination: prev/next buttons, page size selector (10/25/50)
-  - [ ] Loading state: table skeleton
-  - [ ] Empty state: "No transactions" message
-  - [ ] Dark theme ready
-  - [ ] Unit tests (render, filter, pagination)
-  - [ ] all tests pass
-  - [ ] committed
+  - [x] Account selector dropdown (populated from accounts list)
+  - [x] Calls getTransactions(accountId) on load and account change
+  - [x] shadcn/ui Table with columns: Date, Description, Category, Amount
+  - [x] Category badges (colored by category: Food=red, Utilities=blue, etc.)
+  - [x] Category filter selector (select from predefined categories)
+  - [x] Pagination: prev/next buttons, page size selector (10/25/50)
+  - [x] Loading state: table skeleton
+  - [x] Empty state: "No transactions" message
+  - [x] Dark theme ready
+  - [x] Unit tests (render, filter, pagination)
+  - [x] all tests pass
+  - [x] committed
+- **Plan changes**: None - T017 dependencies remain the same (T016 + T008)
+- **Implementation Summary**:
+  - TransactionsPage.tsx: Full transactions page with account selector, table, filters, and pagination
+  - Account selector: Populated from AccountsService.getAccounts(), shows name + formatted balance
+  - Transactions table: shadcn/ui Table with Date (formatted), Description, Category (badge), Amount (formatted)
+  - Category coloring: 8 colors (Groceries=green, Utilities=blue, Entertainment=purple, Food=orange, Transport=cyan, Salary=green, Transfer=yellow, Other=gray)
+  - Category filter: Dropdown with "All Categories" default + 8 predefined categories
+  - Pagination: Previous/Next buttons, "Page X of Y" display, page size selector (10/25/50 default 10)
+  - Loading state: 5-row skeleton table with animate-pulse effect and spinner
+  - Empty state: "No transactions found" message with helpful suggestion
+  - Error state: Error message with AlertCircle icon and Retry button
+  - API integration: TransactionsService.getTransactions(accountId, skip, take, category)
+  - Dark theme: Complete Tailwind dark styling with slate palette
+  - Unit tests: 25 comprehensive test cases covering rendering, filtering, pagination, and state management
+  - Code Quality: 0 build errors, 0 lint errors, 0 TypeScript errors
 
 #### Task T017: Transfer Form Page
 - **Status**: pending
