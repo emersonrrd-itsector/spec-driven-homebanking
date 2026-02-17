@@ -1,5 +1,7 @@
 using System.Text;
 using HomeBanking.API.Data;
+using HomeBanking.API.Filters;
+using HomeBanking.API.Middleware;
 using HomeBanking.API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -41,7 +43,10 @@ builder.Services
         };
     });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ModelValidationFilter>();
+});
 
 var app = builder.Build();
 
@@ -53,6 +58,9 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
+// Global exception handler middleware MUST be first in the pipeline
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
