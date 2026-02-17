@@ -10,7 +10,7 @@
 
 25 atomic tasks organized in 5 phases. Each task is independently deployable and testable. Dependencies are clear; tasks can be parallelized where possible.
 
-**Status**: 3 of 26 tasks complete (T000, T001, T002)  
+**Status**: 4 of 26 tasks complete (T000, T001, T002, T003)  
 **Phases**:
 0. **Bootstrap** (T000): Project scaffold and build verification
 1. **API Foundation** (T001-T010): .NET scaffolding, data layer, REST endpoints, auth
@@ -344,17 +344,24 @@ After completing a task (before pushing):
   - All StyleCop requirements met, zero build errors
 
 #### Task T003: Core Domain Models & Value Objects
-- **Status**: pending
+- **Status**: completed
 - **Dependencies**: T002 (completed)
 - **Estimate**: M
 - **DoD**:
-  - [ ] User aggregate (Id, Email, PasswordHash) - **COMPLETED in T002**
-  - [ ] Account aggregate (Id, UserId, Balance, Currency, AccountNumber) - **COMPLETED in T002**
-  - [ ] Transaction DTO (Id, AccountId, Amount, Date, Description, Category, Type) - **COMPLETED in T002**
-  - [ ] Validation rules defined (balance ≥ 0, transfer amount > 0, etc.)
-  - [ ] unit tests pass
-  - [ ] committed
-- **Plan changes**: T003 scope reduced - models already defined in T002. Focus shifts to: (1) adding validation attributes/methods to models, (2) creating value objects if needed, (3) adding aggregate root patterns/methods, (4) ensuring all validation rules tested.
+  - [x] User aggregate (Id, Email, PasswordHash) - validation methods added
+  - [x] Account aggregate (Id, UserId, Balance, Currency, AccountNumber) - validation methods added
+  - [x] Transaction DTO (Id, AccountId, Amount, Date, Description, Category, Type) - complete
+  - [x] Validation rules defined (balance ≥ 0, transfer amount > 0, duration validation, etc.)
+  - [x] unit tests pass (44 tests, all passing)
+  - [x] committed with message "feat(T003): Core Domain Models & Value Objects"
+- **Implementation Details**:
+  - Created Money value object (Amount, Currency)
+  - Enhanced Email value object (validate format, factory method)
+  - Added PasswordHash.CreateFromPlainText() static method
+  - Created DomainConstants.cs for categories and validation rules
+  - Added 28+ new unit tests for aggregate behavior, validation, and business rules
+  - All value objects implement Equals/GetHashCode for value equality
+- **Plan changes**: None - T004 dependencies unchanged
 
 #### Task T004: JWT Authentication Middleware
 - **Status**: pending
