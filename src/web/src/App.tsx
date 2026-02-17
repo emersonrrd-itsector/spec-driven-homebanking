@@ -1,56 +1,78 @@
-import { Button } from './components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import Layout from './components/Layout/Layout'
+import ProtectedRoute from './components/Layout/ProtectedRoute'
+import LoginPage from './pages/LoginPage'
+import DashboardPage from './pages/DashboardPage'
+import TransactionsPage from './pages/TransactionsPage'
+import TransferPage from './pages/TransferPage'
+import AuthService from './services/authService'
 
+/**
+ * App: Main application component with React Router configuration
+ * Routes:
+ *   - /login: Public login page
+ *   - /dashboard: Protected dashboard (default for authenticated users)
+ *   - /transactions: Protected transactions page
+ *   - /transfer: Protected transfer page
+ *   - /: Root redirects to /dashboard if authenticated, /login otherwise
+ */
 function App() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <main className="container mx-auto p-8">
-        <div className="space-y-8">
-          <section>
-            <h1 className="text-4xl font-bold mb-2">Welcome to Home Banking</h1>
-            <p className="text-muted-foreground">Built with React 19, Vite, TypeScript, and Tailwind CSS</p>
-          </section>
+    <Router>
+      <Routes>
+        {/* Public routes */}
+        <Route path="/login" element={<LoginPage />} />
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <Card>
-              <CardHeader>
-                <CardTitle>Dark Theme</CardTitle>
-                <CardDescription>Enabled by default</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm">This application uses shadcn/ui components with a dark theme as default.</p>
-              </CardContent>
-            </Card>
+        {/* Root redirects based on auth state */}
+        <Route
+          path="/"
+          element={
+            AuthService.isAuthenticated() ? (
+              <Navigate to="/dashboard" replace />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
 
-            <Card>
-              <CardHeader>
-                <CardTitle>React 19</CardTitle>
-                <CardDescription>Latest version</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm">Built with the latest React framework for optimal performance.</p>
-              </CardContent>
-            </Card>
+        {/* Protected routes with layout */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <DashboardPage />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
 
-            <Card>
-              <CardHeader>
-                <CardTitle>TypeScript 5.7</CardTitle>
-                <CardDescription>Strict mode enabled</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm">Full type safety with strict TypeScript compilation.</p>
-              </CardContent>
-            </Card>
-          </div>
+        <Route
+          path="/transactions"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <TransactionsPage />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
 
-          <div className="flex gap-4">
-            <Button variant="default">Primary Button</Button>
-            <Button variant="outline">Outline Button</Button>
-            <Button variant="secondary">Secondary Button</Button>
-          </div>
-        </div>
-      </main>
-    </div>
+        <Route
+          path="/transfer"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <TransferPage />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Catch-all: redirect to root */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Router>
   )
 }
 
