@@ -8,7 +8,8 @@ The system consists of three main components:
 
 1.  **Frontend (Web)**: A Single Page Application (SPA) built with React 18 and Vite. It serves as the user interface for banking operations.
 2.  **Backend (API)**: A .NET 9 Web API that handles business logic, authentication, and data persistence.
-3.  **Database**: SQL Server (containerized) or In-Memory (for isolated testing/dev) used for storing user and transaction data.
+3.  **Gateway (Reverse Proxy)**: Nginx container that exposes a single entry point and forwards `/api/*` to the backend.
+4.  **Database**: SQL Server (containerized) or In-Memory (for isolated testing/dev) used for storing user and transaction data.
 
 These components are typically orchestrated using **Docker Compose** for a consistent runtime environment.
 
@@ -20,6 +21,7 @@ The repository is organized to separate concerns clearly:
 spec-driven-homebanking/
 ├── .github/                # GitHub workflows and configuration
 ├── docs/                   # Project documentation
+├── nginx.gateway.conf      # Nginx reverse proxy config (gateway)
 ├── src/
 │   ├── api/                # Backend Source Code
 │   │   ├── HomeBanking.API/      # .NET 9 Web API project
@@ -30,9 +32,15 @@ spec-driven-homebanking/
 │       ├── src/            # React components, hooks, and services
 │       ├── src/e2e/        # Playwright E2E tests
 │       └── ...             # Vite and project config
-├── docker-compose.yml      # Orchestration for API, Web, and DB
+├── docker-compose.yml      # Orchestration for API, Web, and gateway
 └── README.md               # Entry point documentation
 ```
+
+### Request Routing (Docker)
+*   Browser traffic enters through `http://localhost:8080` (gateway).
+*   `GET /` and SPA routes are proxied to the `web` container.
+*   `/api/*` requests are proxied to the `api` container.
+*   Same-origin routing through gateway eliminates CORS issues in the browser.
 
 ## 🧩 Key Design Patterns
 

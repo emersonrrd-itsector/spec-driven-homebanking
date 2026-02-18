@@ -15,6 +15,7 @@ Ensure you have the following installed on your machine:
 ## 🐳 Running with Docker (Recommended)
 
 The easiest way to run the full stack (API + Web + Database) is using Docker Compose.
+Docker also starts an Nginx reverse proxy gateway to expose a single browser entry point and route API calls.
 
 1.  Navigate to the solution root:
     ```bash
@@ -27,8 +28,14 @@ The easiest way to run the full stack (API + Web + Database) is using Docker Com
     ```
 
 3.  Access the application:
-    *   **Web Frontend**: [http://localhost:3000](http://localhost:3000)
-    *   **API**: [http://localhost:5001](http://localhost:5001) (Health check: `/health`)
+    *   **Gateway (recommended)**: [http://localhost:8080](http://localhost:8080)
+    *   **Web Frontend (direct/debug)**: [http://localhost:3000](http://localhost:3000)
+    *   **API (direct/debug)**: [http://localhost:5001](http://localhost:5001) (Health check: `/health`)
+
+4.  Reverse proxy behavior (`nginx.gateway.conf`):
+    *   `GET /` and frontend routes → proxied to `web:80`
+    *   `/api/*` requests → proxied to `api:8080`
+    *   This keeps API calls same-origin and avoids browser CORS blocking.
 
 To stop the services, press `Ctrl+C` or run:
 ```bash

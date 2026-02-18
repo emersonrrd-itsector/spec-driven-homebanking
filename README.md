@@ -4,6 +4,8 @@
 
 HomeBanking is a robust, full-stack banking application built with a focus on specification-driven development. It features a scalable .NET 9 API backend and a responsive React frontend, orchestrated via Docker for seamless deployment and development.
 
+When running with Docker, requests are served through an Nginx reverse proxy gateway so frontend and backend share the same origin, preventing CORS issues in the browser.
+
 ## 🚀 Key Features
 
 *   **Modern Tech Stack**: Built with the latest .NET 9 and React 18 capabilities.
@@ -38,8 +40,11 @@ To get the application running quickly with Docker:
     ```
 
 3.  **Access the Application**:
-    *   **Web App**: [http://localhost:3000](http://localhost:3000)
-    *   **API Swagger**: [http://localhost:5001/swagger](http://localhost:5001/swagger)
+    *   **Gateway (recommended)**: [http://localhost:8080](http://localhost:8080)
+    *   **Web App (direct/debug)**: [http://localhost:3000](http://localhost:3000)
+    *   **API (direct/debug)**: [http://localhost:5001](http://localhost:5001)
+
+> Through the gateway, frontend calls `/api/*` on the same origin (`http://localhost:8080`), and Nginx proxies those requests to the API container.
 
 ## 📚 Documentation
 
