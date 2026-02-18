@@ -1,0 +1,91 @@
+name: HomeBanking CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test-api:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --no-restore
+      
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+
+  build-and-test-web:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'npm'
+        cache-dependency-path: src/web/package-lock.json
+
+    - name: Install dependencies
+      working-directory: src/web
+      run: npm ci
+
+    - name: Lint
+      working-directory: src/web
+      run: npm run lint
+
+    - name: Build
+      working-directory: src/web
+      run: npm run build
+
+  e2e-tests:
+    needs: [build-and-test-api, build-and-test-web]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js (for Playwright)
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'npm'
+        cache-dependency-path: src/web/package-lock.json
+
+    - name: Install Playwright dependencies
+      working-directory: src/web
+      run: |
+        npm ci
+        npx playwright install --with-deps
+
+    - name: Start services with Docker Compose
+      run: |
+        docker compose up -d --build
+        echo "Waiting for services to be ready..."
+        timeout 60s bash -c 'until curl --silent --fail http://localhost:5001/health && curl --silent --fail http://localhost:3000/; do echo "Waiting for services..."; sleep 5; done' || (docker compose logs && exit 1)
+
+    - name: Run Playwright tests
+      working-directory: src/web
+      env:
+        BASE_URL: http://localhost:3000
+        CI: true
+      run: npx playwright test
+
+    - name: Upload Playwright artifacts
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-report
+        path: src/web/playwright-report/
+        retention-days: 7

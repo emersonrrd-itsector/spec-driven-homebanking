@@ -10,9 +10,27 @@ import type { ErrorResponse } from '../types'
 const AUTH_TOKEN_KEY = 'homebank_jwt'
 const DEFAULT_API_URL = 'http://localhost:5087'
 
+function normalizeBaseUrl(url: string): string {
+  const trimmedUrl = url.trim()
+
+  if (trimmedUrl === '/api' || trimmedUrl === '/api/') {
+    return ''
+  }
+
+  if (trimmedUrl.endsWith('/api')) {
+    return trimmedUrl.slice(0, -4)
+  }
+
+  if (trimmedUrl.endsWith('/api/')) {
+    return trimmedUrl.slice(0, -5)
+  }
+
+  return trimmedUrl
+}
+
 // Create axios instance with validated baseURL
 function createApiClient(): AxiosInstance {
-  const baseURL = import.meta.env.VITE_API_URL || DEFAULT_API_URL
+  const baseURL = normalizeBaseUrl(import.meta.env.VITE_API_URL || DEFAULT_API_URL)
   
   const api: AxiosInstance = axios.create({
     baseURL,
