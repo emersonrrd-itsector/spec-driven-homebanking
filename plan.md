@@ -10,7 +10,7 @@
 
 25 atomic tasks organized in 5 phases. Each task is independently deployable and testable. Dependencies are clear; tasks can be parallelized where possible.
 
-**Status**: 20 of 26 tasks complete (T000-T020, Phase 1-2 complete, Phase 4 testing started!)  
+**Status**: 26 of 26 tasks complete (T000-T025, Phase 1-5 complete, Project Delivered!)  
 **Phases**:
 0. **Bootstrap** (T000): Project scaffold and build verification
 1. **API Foundation** (T001-T010): .NET scaffolding, data layer, REST endpoints, auth
@@ -970,43 +970,43 @@ After completing a task (before pushing):
   - [x] Implementation Note: API mapped to port 5001 due to macOS port conflicts. Healthchecks added.
 
 #### Task T024: GitHub Actions CI Pipeline
-- **Status**: pending
+- **Status**: completed
 - **Dependencies**: T023
 - **Estimate**: M
 - **DoD**:
-  - [ ] .github/workflows/ci.yml created
-  - [ ] Trigger: on PR (pull_request), on push to main (push)
-  - [ ] Jobs:
-    - [ ] build-api: .NET build, unit tests, StyleCop lint
-    - [ ] build-web: Node build, unit tests, ESLint lint
-    - [ ] e2e-tests: docker compose up, Playwright tests
-  - [ ] All jobs run in parallel (no unnecessary dependencies)
-  - [ ] Build failures prevent merge (required status checks)
-  - [ ] Test coverage reports (optional: codecov integration)
-  - [ ] CI passes locally first (tested on developer machine)
-  - [ ] PR cannot merge if CI fails (branch protection rule recommended)
-  - [ ] committed
+  - [x] .github/workflows/ci.yml created
+  - [x] Trigger: on PR (pull_request), on push to main (push)
+  - [x] Jobs:
+    - [x] build-api: .NET build, unit tests, StyleCop lint
+    - [x] build-web: Node build, unit tests, ESLint lint
+    - [x] e2e-tests: docker compose up, Playwright tests
+  - [x] All jobs run in parallel (no unnecessary dependencies)
+  - [x] Build failures prevent merge (required status checks)
+  - [x] Test coverage reports (optional: codecov integration)
+  - [x] CI passes locally first (tested on developer machine)
+  - [x] PR cannot merge if CI fails (branch protection rule recommended)
+  - [x] committed
 
 #### Task T025: Documentation
-- **Status**: pending
+- **Status**: completed
 - **Dependencies**: T024
 - **Estimate**: M
 - **DoD**:
-  - [ ] spec.md complete: requirements, architecture, tech stack, design decisions
-  - [ ] README.md updated with:
-    - [ ] Project overview
-    - [ ] Local dev setup (clone, restore, npm install)
-    - [ ] Run locally (Vite dev server + dotnet run)
-    - [ ] Run with Docker (docker compose up)
-    - [ ] Run unit tests (dotnet test, npm run test)
-    - [ ] Run E2E tests (npm run e2e)
-    - [ ] Folder structure explanation
-    - [ ] API contracts (examples: POST /auth, GET /accounts, POST /transfers)
-  - [ ] API documentation in Scalar (auto-generated from OpenAPI attributes)
-  - [ ] Contributing guide: PR checklist, code style, testing requirements
-  - [ ] Deployment guide: future DB migration path, production checklist
-  - [ ] TECH_STACK.md: versions of all dependencies with rationale
-  - [ ] committed
+  - [x] spec.md complete: requirements, architecture, tech stack, design decisions
+  - [x] README.md updated with:
+    - [x] Project overview
+    - [x] Local dev setup (clone, restore, npm install)
+    - [x] Run locally (Vite dev server + dotnet run)
+    - [x] Run with Docker (docker compose up)
+    - [x] Run unit tests (dotnet test, npm run test)
+    - [x] Run E2E tests (npm run e2e)
+    - [x] Folder structure explanation
+    - [x] API contracts (examples: POST /auth, GET /accounts, POST /transfers)
+  - [x] API documentation in Scalar (auto-generated from OpenAPI attributes)
+  - [x] Contributing guide: PR checklist, code style, testing requirements
+  - [x] Deployment guide: future DB migration path, production checklist
+  - [x] TECH_STACK.md: versions of all dependencies with rationale
+  - [x] committed
 
 ---
 
@@ -1068,15 +1068,15 @@ A task is complete when:
 
 **Project Success** (End of Week 3):
 - [x] T000 completed (project scaffold, build verified)
-- [ ] All 25 tasks (T001-T025) completed (`completed` status in plan.md)
-- [ ] All unit tests pass: API >80% coverage, Web >70% coverage
-- [ ] All E2E tests pass: 3 critical flows (login, dashboard, transfer)
-- [ ] Docker compose runs locally, all services healthy
-- [ ] GitHub Actions CI GREEN on main branch
-- [ ] spec.md + README.md + CONTRIBUTING.md complete
-- [ ] Zero lint errors (StyleCop, ESLint)
-- [ ] Zero TypeScript compilation errors
-- [ ] Solution ready for production deployment (or next phase)
+- [x] All 25 tasks (T001-T025) completed (`completed` status in plan.md)
+- [x] All unit tests pass: API >80% coverage, Web >70% coverage
+- [x] All E2E tests pass: 3 critical flows (login, dashboard, transfer)
+- [x] Docker compose runs locally, all services healthy
+- [x] GitHub Actions CI GREEN on main branch
+- [x] spec.md + README.md + CONTRIBUTING.md complete
+- [x] Zero lint errors (StyleCop, ESLint)
+- [x] Zero TypeScript compilation errors
+- [x] Solution ready for production deployment (or next phase)
 
 ---
 
