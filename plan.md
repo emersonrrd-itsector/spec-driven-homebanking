@@ -917,50 +917,57 @@ After completing a task (before pushing):
   - See IMPLEMENTATION_SUMMARY_T021.md for detailed analysis
 
 #### Task T022: Playwright E2E Tests - Transfer Flow
-- **Status**: pending
+- **Status**: ✅ complete
 - **Dependencies**: T021
 - **Estimate**: M
 - **DoD**:
-  - [ ] Test 1: Happy path transfer
-    - [ ] Login → /transfer page
-    - [ ] Select source & destination accounts
-    - [ ] Enter amount + optional description
-    - [ ] Click submit
-    - [ ] Success toast shown
-    - [ ] Redirected to /transactions
-    - [ ] New transaction visible in both accounts
-  - [ ] Test 2: Invalid scenarios
-    - [ ] Transfer with insufficient balance → error toast, not redirected
-    - [ ] Transfer from account to same account → form validation prevents submit
-    - [ ] Enter negative amount → form validation prevents submit
-  - [ ] Test 3: Transfer verification
-    - [ ] Source account balance decreases
-    - [ ] Destination account balance increases
-    - [ ] Transaction timestamps recorded
-  - [ ] Tests run reliably (no race conditions)
-  - [ ] all tests pass (`npm run e2e`)
-  - [ ] committed
+  - [x] Test 1: Happy path transfer
+    - [x] Login → /transfer page
+    - [x] Select source & destination accounts
+    - [x] Enter amount + optional description
+    - [x] Click submit
+    - [x] Success toast shown
+    - [x] Redirected to /transactions
+    - [x] New transaction visible in both accounts
+  - [x] Test 2: Invalid scenarios
+    - [x] Transfer with insufficient balance → error toast, not redirected
+    - [x] Transfer from account to same account → form validation prevents submit
+    - [x] Enter negative amount → form validation prevents submit
+  - [x] Test 3: Transfer verification
+    - [x] Source account balance decreases
+    - [x] Destination account balance increases
+    - [x] Transaction timestamps recorded
+  - [x] Tests run reliably (no race conditions)
+  - [x] all tests pass (`npm run e2e`)
+  - [x] committed
+- **Implementation Note**:
+  - Implemented `TestController` in API (`/api/test/reset`) to allow true isolation in E2E tests.
+  - Updated `helpers.ts` to reset DB before login.
+  - Fixed API JWT claims to be standard (`sub`, `email`) which required updating `JwtTokenService` and its unit tests.
+  - Fixed `transactions.spec.ts` selector issues and `login.spec.ts` timeouts.
+  - All 3 test suites (unit-api, unit-web, e2e) are passing locally.
 
 ---
 
 ### Phase 5: Infrastructure & CI/CD (T023-T025)
 
 #### Task T023: Docker Compose Setup
-- **Status**: pending
+- **Status**: completed
 - **Dependencies**: T010, T018
 - **Estimate**: M
 - **DoD**:
-  - [ ] docker-compose.yml with 2 services: api, web
-  - [ ] API service: builds Dockerfile.api (multi-stage, .NET 9 runtime, ~200MB image)
-  - [ ] Web service: builds Dockerfile.web (Node 22, npm build, nginx, ~100MB image)
-  - [ ] Environment variables: API_URL (http://api:5000), JWT_SECRET
-  - [ ] Healthchecks configured: GET /health for API, GET / for web
-  - [ ] Network: web can reach API at http://api:5000
-  - [ ] `docker compose up` starts both services, all ready within 30s
-  - [ ] `docker compose down` cleans up containers and volumes
-  - [ ] Dockerfile.api optimized (multi-stage, no test layer in final image)
-  - [ ] Dockerfile.web optimized (nginx serves static files, gzip enabled)
-  - [ ] committed
+  - [x] docker-compose.yml with 2 services: api, web
+  - [x] API service: builds Dockerfile.api (multi-stage, .NET 9 runtime, ~200MB image)
+  - [x] Web service: builds Dockerfile.web (Node 22, npm build, nginx, ~100MB image)
+  - [x] Environment variables: API_URL (http://api:5000), JWT_SECRET
+  - [x] Healthchecks configured: GET /health for API, GET / for web
+  - [x] Network: web can reach API at http://api:5000
+  - [x] `docker compose up` starts both services, all ready within 30s
+  - [x] `docker compose down` cleans up containers and volumes
+  - [x] Dockerfile.api optimized (multi-stage, no test layer in final image)
+  - [x] Dockerfile.web optimized (nginx serves static files, gzip enabled)
+  - [x] committed
+  - [x] Implementation Note: API mapped to port 5001 due to macOS port conflicts. Healthchecks added.
 
 #### Task T024: GitHub Actions CI Pipeline
 - **Status**: pending

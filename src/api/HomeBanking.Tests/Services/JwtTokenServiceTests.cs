@@ -57,7 +57,7 @@ public class JwtTokenServiceTests
 
         // Assert
         Assert.NotNull(principal);
-        var userIdClaim = principal.FindFirst("userId");
+        var userIdClaim = principal.FindFirst(JwtRegisteredClaimNames.Sub);
         Assert.NotNull(userIdClaim);
         Assert.Equal(userId.ToString(), userIdClaim.Value);
     }
@@ -81,7 +81,7 @@ public class JwtTokenServiceTests
 
         // Assert
         Assert.NotNull(principal);
-        var emailClaim = principal.FindFirst("email");
+        var emailClaim = principal.FindFirst(JwtRegisteredClaimNames.Email);
         Assert.NotNull(emailClaim);
         Assert.Equal(email, emailClaim.Value);
     }
@@ -156,8 +156,8 @@ public class JwtTokenServiceTests
 
         // Assert
         Assert.NotNull(principal);
-        var userIdClaim = principal.FindFirst("userId");
-        var emailClaim = principal.FindFirst("email");
+        var userIdClaim = principal.FindFirst(JwtRegisteredClaimNames.Sub);
+        var emailClaim = principal.FindFirst(JwtRegisteredClaimNames.Email);
         Assert.NotNull(userIdClaim);
         Assert.NotNull(emailClaim);
         Assert.Equal(userId.ToString(), userIdClaim.Value);

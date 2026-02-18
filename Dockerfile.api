@@ -1,0 +1,29 @@
+# Stage 1: Build
+FROM mcr.microsoft.com/dotnet/sdk:9.0-noble AS build
+WORKDIR /src
+
+# Copy project file and restore dependencies
+COPY ["src/api/HomeBanking.API/HomeBanking.API.csproj", "src/api/HomeBanking.API/"]
+RUN dotnet restore "src/api/HomeBanking.API/HomeBanking.API.csproj"
+
+# Copy the rest of the source code
+COPY . .
+
+# Build and Publish
+WORKDIR "/src/src/api/HomeBanking.API"
+RUN dotnet build "HomeBanking.API.csproj" -c Release -o /app/build
+RUN dotnet publish "HomeBanking.API.csproj" -c Release -o /app/publish
+
+# Stage 2: Runtime
+FROM mcr.microsoft.com/dotnet/aspnet:9.0-noble AS final
+WORKDIR /app
+EXPOSE 8080
+ENV ASPNETCORE_HTTP_PORTS=8080
+
+# Install curl for healthcheck
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "HomeBanking.API.dll"]

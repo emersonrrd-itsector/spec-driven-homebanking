@@ -34,7 +34,7 @@ public class HealthController : ControllerBase
     /// <returns>
     /// 200 OK with HealthResponse containing status, timestamp (ISO8601), and API version.
     /// </returns>
-    [HttpGet]
+    [HttpGet("/health")]
     [AllowAnonymous]
     [ProducesResponseType(typeof(HealthResponse), StatusCodes.Status200OK)]
     public IActionResult Health()

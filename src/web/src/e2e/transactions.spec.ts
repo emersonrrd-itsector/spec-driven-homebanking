@@ -167,7 +167,7 @@ test.describe('Transactions', () => {
       
       // Get filtered count
       const filteredRows = page.getByRole('row').filter({ has: page.getByRole('cell') })
-      const filteredCount = await filteredRows.count()
+      await filteredRows.count()
       
       // Select "All Categories" to clear filter
       await selectElement.selectOption('All')
@@ -232,7 +232,7 @@ test.describe('Transactions', () => {
     if (await pageSizeSelect.isVisible().catch(() => false)) {
       // Get initial row count
       const initialRows = page.getByRole('row').filter({ has: page.getByRole('cell') })
-      const initialCount = await initialRows.count()
+      await initialRows.count()
       
       // Change page size to 25
       await pageSizeSelect.selectOption('25')

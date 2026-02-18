@@ -13,6 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddHomeBankingContext();
 
+// Add Health Checks
+builder.Services.AddHealthChecks();
+
 // Add authentication services
 var jwtSecret = builder.Configuration["JWT_SECRET"] ?? "demo-secret-key-2024-homebanking";
 var jwtExpiryHours = int.TryParse(builder.Configuration["JWT_EXPIRY_HOURS"], out var expiryHours) ? expiryHours : 24;
@@ -87,6 +90,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecks("/health");
 
 var summaries = new[]
 {
