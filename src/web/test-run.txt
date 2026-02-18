@@ -1,0 +1,594 @@
+
+Running 23 tests using 5 workers
+
+[1A[2K[1/23] [chromium] › src/e2e/dashboard.spec.ts:24:3 › Dashboard › should display welcome message with user email
+[1A[2K[2/23] [chromium] › src/e2e/dashboard.spec.ts:115:3 › Dashboard › should show hover effect on account cards
+[1A[2K[3/23] [chromium] › src/e2e/dashboard.spec.ts:69:3 › Dashboard › should navigate to transactions page when clicking on account card
+[1A[2K[4/23] [chromium] › src/e2e/dashboard.spec.ts:32:3 › Dashboard › should display account cards with name, balance, and last updated
+[1A[2K[5/23] [chromium] › src/e2e/dashboard.spec.ts:91:3 › Dashboard › should display multiple account cards in responsive grid
+[1A[2K  1) [chromium] › src/e2e/dashboard.spec.ts:32:3 › Dashboard › should display account cards with name, balance, and last updated 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: > [32m0[39m
+    Received:   [31m0[39m
+
+      42 |     await expect(accountCards).toHaveCount(await accountCards.count())
+      43 |     const cardCount = await accountCards.count()
+    > 44 |     expect(cardCount).toBeGreaterThan(0)
+         |                       ^
+      45 |     
+      46 |     // Verify first card has required elements
+      47 |     const firstCard = accountCards.first()
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/dashboard.spec.ts:44:23
+
+
+[1A[2K[6/23] [chromium] › src/e2e/dashboard.spec.ts:129:3 › Dashboard › should handle error state when API fails
+[1A[2K[7/23] [chromium] › src/e2e/dashboard.spec.ts:152:3 › Dashboard › should display loading skeleton while fetching accounts
+[1A[2K  2) [chromium] › src/e2e/dashboard.spec.ts:115:3 › Dashboard › should show hover effect on account cards 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveClass[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('[class*="bg-slate-900"][class*="border-slate-700"]').filter({ has: locator('text=/Balance|Account #/i') }).first()
+    Expected pattern: [32m/cursor-pointer/[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveClass" with timeout 5000ms[22m
+    [2m  - waiting for locator('[class*="bg-slate-900"][class*="border-slate-700"]').filter({ has: locator('text=/Balance|Account #/i') }).first()[22m
+
+
+      124 |     
+      125 |     // Card should have cursor-pointer class (indicating it's clickable)
+    > 126 |     await expect(firstCard).toHaveClass(/cursor-pointer/)
+          |                             ^
+      127 |   })
+      128 |
+      129 |   test('should handle error state when API fails', async ({ page }) => {
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/dashboard.spec.ts:126:29
+
+    Error Context: test-results/dashboard-Dashboard-should-4b662-ver-effect-on-account-cards-chromium/error-context.md
+
+
+[1A[2K[8/23] [chromium] › src/e2e/login.spec.ts:16:3 › Login Flow › should successfully login with valid credentials and redirect to dashboard
+[1A[2K  3) [chromium] › src/e2e/dashboard.spec.ts:24:3 › Dashboard › should display welcome message with user email 
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected: [32m"http://localhost:5173/[7mdashboard[27m"[39m
+    Received: [31m"http://localhost:5173/[7mlogin[27m"[39m
+    Timeout:  10000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 10000ms[22m
+    [2m    - waiting for" http://localhost:5173/login" navigation to finish...[22m
+    [2m    - navigated to "http://localhost:5173/login"[22m
+    [2m    13 × unexpected value "http://localhost:5173/login"[22m
+
+
+      19 |     
+      20 |     // Wait for dashboard to load
+    > 21 |     await expect(page).toHaveURL('/dashboard', { timeout: 10000 })
+         |                        ^
+      22 |   })
+      23 |
+      24 |   test('should display welcome message with user email', async ({ page }) => {
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/dashboard.spec.ts:21:24
+
+    Error Context: test-results/dashboard-Dashboard-should-13f58-ome-message-with-user-email-chromium/error-context.md
+
+
+[1A[2K  4) [chromium] › src/e2e/dashboard.spec.ts:91:3 › Dashboard › should display multiple account cards in responsive grid 
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected: [32m"http://localhost:5173/[7mdashboard[27m"[39m
+    Received: [31m"http://localhost:5173/[7mlogin[27m"[39m
+    Timeout:  10000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 10000ms[22m
+    [2m    - waiting for" http://localhost:5173/login" navigation to finish...[22m
+    [2m    - navigated to "http://localhost:5173/login"[22m
+    [2m    13 × unexpected value "http://localhost:5173/login"[22m
+
+
+      19 |     
+      20 |     // Wait for dashboard to load
+    > 21 |     await expect(page).toHaveURL('/dashboard', { timeout: 10000 })
+         |                        ^
+      22 |   })
+      23 |
+      24 |   test('should display welcome message with user email', async ({ page }) => {
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/dashboard.spec.ts:21:24
+
+    Error Context: test-results/dashboard-Dashboard-should-fd245-nt-cards-in-responsive-grid-chromium/error-context.md
+
+
+[1A[2K[9/23] [chromium] › src/e2e/login.spec.ts:50:3 › Login Flow › should show error message with invalid credentials
+[1A[2K[10/23] [chromium] › src/e2e/login.spec.ts:71:3 › Login Flow › should validate required fields
+[1A[2K[11/23] [chromium] › src/e2e/login.spec.ts:84:3 › Login Flow › should validate email format
+[1A[2K  5) [chromium] › src/e2e/login.spec.ts:16:3 › Login Flow › should successfully login with valid credentials and redirect to dashboard 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByRole('heading', { name: /welcome/i })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('heading', { name: /welcome/i })[22m
+    [2m    - waiting for" http://localhost:5173/login" navigation to finish...[22m
+    [2m    - navigated to "http://localhost:5173/login"[22m
+
+
+      45 |     
+      46 |     // Verify we see the dashboard content
+    > 47 |     await expect(page.getByRole('heading', { name: /welcome/i })).toBeVisible()
+         |                                                                   ^
+      48 |   })
+      49 |
+      50 |   test('should show error message with invalid credentials', async ({ page }) => {
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/login.spec.ts:47:67
+
+    Error Context: test-results/login-Login-Flow-should-su-ddb6d-s-and-redirect-to-dashboard-chromium/error-context.md
+
+
+[1A[2K  6) [chromium] › src/e2e/dashboard.spec.ts:152:3 › Dashboard › should display loading skeleton while fetching accounts 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('[class*="bg-slate-900"][class*="border-slate-700"]').filter({ has: locator('text=/Balance|Account #/i') }).first()
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 10000ms[22m
+    [2m  - waiting for locator('[class*="bg-slate-900"][class*="border-slate-700"]').filter({ has: locator('text=/Balance|Account #/i') }).first()[22m
+
+
+      167 |     })
+      168 |     
+    > 169 |     await expect(accountCards.first()).toBeVisible({ timeout: 10000 })
+          |                                        ^
+      170 |   })
+      171 | })
+      172 |
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/dashboard.spec.ts:169:40
+
+    Error Context: test-results/dashboard-Dashboard-should-32f24-ton-while-fetching-accounts-chromium/error-context.md
+
+
+[1A[2K[12/23] [chromium] › src/e2e/login.spec.ts:98:3 › Login Flow › should persist authentication across page reloads
+[1A[2K[13/23] [chromium] › src/e2e/login.spec.ts:118:3 › Login Flow › should show loading state during login
+[1A[2K[14/23] [chromium] › src/e2e/transactions.spec.ts:37:3 › Transactions › should display transactions table with all required columns
+[1A[2K  7) [chromium] › src/e2e/login.spec.ts:50:3 › Login Flow › should show error message with invalid credentials 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText(/invalid|failed|error/i)
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText(/invalid|failed|error/i)[22m
+
+
+      62 |     
+      63 |     // Wait for error message to appear
+    > 64 |     await expect(page.getByText(/invalid|failed|error/i)).toBeVisible({ timeout: 5000 })
+         |                                                           ^
+      65 |     
+      66 |     // Verify no JWT token is stored
+      67 |     const token = await page.evaluate(() => localStorage.getItem('homebank_jwt'))
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/login.spec.ts:64:59
+
+    Error Context: test-results/login-Login-Flow-should-sh-070f2-ge-with-invalid-credentials-chromium/error-context.md
+
+
+[1A[2K  8) [chromium] › src/e2e/login.spec.ts:84:3 › Login Flow › should validate email format ───────────
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText(/valid email/i)
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText(/valid email/i)[22m
+
+
+      93 |     
+      94 |     // Should show validation message
+    > 95 |     await expect(page.getByText(/valid email/i)).toBeVisible()
+         |                                                  ^
+      96 |   })
+      97 |
+      98 |   test('should persist authentication across page reloads', async ({ page }) => {
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/login.spec.ts:95:50
+
+    Error Context: test-results/login-Login-Flow-should-validate-email-format-chromium/error-context.md
+
+
+[1A[2K[15/23] [chromium] › src/e2e/transactions.spec.ts:56:3 › Transactions › should display category badges with colors for each transaction
+[1A[2K[16/23] [chromium] › src/e2e/transactions.spec.ts:89:3 › Transactions › should format transaction amounts with currency and +/- signs
+[1A[2K  9) [chromium] › src/e2e/login.spec.ts:98:3 › Login Flow › should persist authentication across page reloads 
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected: [32m"http://localhost:5173/[7mdashboard[27m"[39m
+    Received: [31m"http://localhost:5173/[7mlogin[27m"[39m
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 5000ms[22m
+    [2m    - waiting for" http://localhost:5173/login" navigation to finish...[22m
+    [2m    - navigated to "http://localhost:5173/login"[22m
+    [2m    8 × unexpected value "http://localhost:5173/login"[22m
+
+
+      112 |     
+      113 |     // Should still be on dashboard (not redirected to login)
+    > 114 |     await expect(page).toHaveURL('/dashboard')
+          |                        ^
+      115 |     await expect(page.getByRole('heading', { name: /welcome/i })).toBeVisible()
+      116 |   })
+      117 |
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/login.spec.ts:114:24
+
+    Error Context: test-results/login-Login-Flow-should-pe-098f1-ication-across-page-reloads-chromium/error-context.md
+
+
+[1A[2K[17/23] [chromium] › src/e2e/transactions.spec.ts:110:3 › Transactions › should filter transactions by category
+[1A[2K  10) [chromium] › src/e2e/dashboard.spec.ts:69:3 › Dashboard › should navigate to transactions page when clicking on account card 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('[class*="bg-slate-900"][class*="border-slate-700"]').filter({ has: locator('text=/Balance|Account #/i') }).first()[22m
+
+
+      80 |     
+      81 |     // Click the first card
+    > 82 |     await firstCard.click()
+         |                     ^
+      83 |     
+      84 |     // Should navigate to transactions page with accountId query parameter
+      85 |     await expect(page).toHaveURL(/\/transactions\?accountId=/, { timeout: 5000 })
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/dashboard.spec.ts:82:21
+
+    Error Context: test-results/dashboard-Dashboard-should-99624-en-clicking-on-account-card-chromium/error-context.md
+
+
+[1A[2K[18/23] [chromium] › src/e2e/transactions.spec.ts:161:3 › Transactions › should show all transactions when filter is cleared
+[1A[2K  11) [chromium] › src/e2e/transactions.spec.ts:110:3 › Transactions › should filter transactions by category 
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected: [32m"http://localhost:5173/[7mdashboard[27m"[39m
+    Received: [31m"http://localhost:5173/[7mlogin[27m"[39m
+    Timeout:  10000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 10000ms[22m
+    [2m    14 × unexpected value "http://localhost:5173/login"[22m
+
+
+      19 |     
+      20 |     // Wait for dashboard
+    > 21 |     await expect(page).toHaveURL('/dashboard', { timeout: 10000 })
+         |                        ^
+      22 |     
+      23 |     // Wait for account cards to load
+      24 |     await page.waitForSelector('[class*="animate-pulse"]', { state: 'detached', timeout: 10000 })
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:21:24
+
+    Error Context: test-results/transactions-Transactions--a1d45-er-transactions-by-category-chromium/error-context.md
+
+
+[1A[2K[19/23] [chromium] › src/e2e/transactions.spec.ts:194:3 › Transactions › should display pagination controls
+[1A[2K  12) [chromium] › src/e2e/transactions.spec.ts:37:3 › Transactions › should display transactions table with all required columns 
+
+    [31mTest timeout of 30000ms exceeded while running "beforeEach" hook.[39m
+
+       9 | test.describe('Transactions', () => {
+      10 |   // Helper to login and navigate to transactions
+    > 11 |   test.beforeEach(async ({ page }) => {
+         |        ^
+      12 |     // Login
+      13 |     await page.goto('/login')
+      14 |     await page.evaluate(() => localStorage.clear())
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:11:8
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('[class*="bg-slate-900"][class*="border-slate-700"]').filter({ has: locator('text=/Balance|Account #/i') }).first()[22m
+
+
+      29 |     }).first()
+      30 |     
+    > 31 |     await firstCard.click()
+         |                     ^
+      32 |     
+      33 |     // Wait for transactions page to load
+      34 |     await expect(page).toHaveURL(/\/transactions\?accountId=/, { timeout: 5000 })
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:31:21
+
+    Error Context: test-results/transactions-Transactions--1355c-e-with-all-required-columns-chromium/error-context.md
+
+
+[1A[2K[20/23] [chromium] › src/e2e/transactions.spec.ts:218:3 › Transactions › should handle empty state when no transactions exist
+[1A[2K  13) [chromium] › src/e2e/transactions.spec.ts:56:3 › Transactions › should display category badges with colors for each transaction 
+
+    [31mTest timeout of 30000ms exceeded while running "beforeEach" hook.[39m
+
+       9 | test.describe('Transactions', () => {
+      10 |   // Helper to login and navigate to transactions
+    > 11 |   test.beforeEach(async ({ page }) => {
+         |        ^
+      12 |     // Login
+      13 |     await page.goto('/login')
+      14 |     await page.evaluate(() => localStorage.clear())
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:11:8
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('[class*="bg-slate-900"][class*="border-slate-700"]').filter({ has: locator('text=/Balance|Account #/i') }).first()[22m
+
+
+      29 |     }).first()
+      30 |     
+    > 31 |     await firstCard.click()
+         |                     ^
+      32 |     
+      33 |     // Wait for transactions page to load
+      34 |     await expect(page).toHaveURL(/\/transactions\?accountId=/, { timeout: 5000 })
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:31:21
+
+    Error Context: test-results/transactions-Transactions--ed395-colors-for-each-transaction-chromium/error-context.md
+
+
+[1A[2K  14) [chromium] › src/e2e/transactions.spec.ts:89:3 › Transactions › should format transaction amounts with currency and +/- signs 
+
+    [31mTest timeout of 30000ms exceeded while running "beforeEach" hook.[39m
+
+       9 | test.describe('Transactions', () => {
+      10 |   // Helper to login and navigate to transactions
+    > 11 |   test.beforeEach(async ({ page }) => {
+         |        ^
+      12 |     // Login
+      13 |     await page.goto('/login')
+      14 |     await page.evaluate(() => localStorage.clear())
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:11:8
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('[class*="bg-slate-900"][class*="border-slate-700"]').filter({ has: locator('text=/Balance|Account #/i') }).first()[22m
+
+
+      29 |     }).first()
+      30 |     
+    > 31 |     await firstCard.click()
+         |                     ^
+      32 |     
+      33 |     // Wait for transactions page to load
+      34 |     await expect(page).toHaveURL(/\/transactions\?accountId=/, { timeout: 5000 })
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:31:21
+
+    Error Context: test-results/transactions-Transactions--d6853-s-with-currency-and---signs-chromium/error-context.md
+
+
+[1A[2K[21/23] [chromium] › src/e2e/transactions.spec.ts:233:3 › Transactions › should change page size and update table
+[1A[2K[22/23] [chromium] › src/e2e/transactions.spec.ts:260:3 › Transactions › should navigate between pages
+[1A[2K  15) [chromium] › src/e2e/transactions.spec.ts:161:3 › Transactions › should show all transactions when filter is cleared 
+
+    [31mTest timeout of 30000ms exceeded while running "beforeEach" hook.[39m
+
+       9 | test.describe('Transactions', () => {
+      10 |   // Helper to login and navigate to transactions
+    > 11 |   test.beforeEach(async ({ page }) => {
+         |        ^
+      12 |     // Login
+      13 |     await page.goto('/login')
+      14 |     await page.evaluate(() => localStorage.clear())
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:11:8
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('[class*="bg-slate-900"][class*="border-slate-700"]').filter({ has: locator('text=/Balance|Account #/i') }).first()[22m
+
+
+      29 |     }).first()
+      30 |     
+    > 31 |     await firstCard.click()
+         |                     ^
+      32 |     
+      33 |     // Wait for transactions page to load
+      34 |     await expect(page).toHaveURL(/\/transactions\?accountId=/, { timeout: 5000 })
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:31:21
+
+    Error Context: test-results/transactions-Transactions--90f7f-ions-when-filter-is-cleared-chromium/error-context.md
+
+
+[1A[2K[23/23] [chromium] › src/e2e/transactions.spec.ts:282:3 › Transactions › should maintain filter when changing pages
+[1A[2K  16) [chromium] › src/e2e/transactions.spec.ts:194:3 › Transactions › should display pagination controls 
+
+    [31mTest timeout of 30000ms exceeded while running "beforeEach" hook.[39m
+
+       9 | test.describe('Transactions', () => {
+      10 |   // Helper to login and navigate to transactions
+    > 11 |   test.beforeEach(async ({ page }) => {
+         |        ^
+      12 |     // Login
+      13 |     await page.goto('/login')
+      14 |     await page.evaluate(() => localStorage.clear())
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:11:8
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('[class*="bg-slate-900"][class*="border-slate-700"]').filter({ has: locator('text=/Balance|Account #/i') }).first()[22m
+
+
+      29 |     }).first()
+      30 |     
+    > 31 |     await firstCard.click()
+         |                     ^
+      32 |     
+      33 |     // Wait for transactions page to load
+      34 |     await expect(page).toHaveURL(/\/transactions\?accountId=/, { timeout: 5000 })
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:31:21
+
+    Error Context: test-results/transactions-Transactions-should-display-pagination-controls-chromium/error-context.md
+
+
+[1A[2K  17) [chromium] › src/e2e/transactions.spec.ts:218:3 › Transactions › should handle empty state when no transactions exist 
+
+    [31mTest timeout of 30000ms exceeded while running "beforeEach" hook.[39m
+
+       9 | test.describe('Transactions', () => {
+      10 |   // Helper to login and navigate to transactions
+    > 11 |   test.beforeEach(async ({ page }) => {
+         |        ^
+      12 |     // Login
+      13 |     await page.goto('/login')
+      14 |     await page.evaluate(() => localStorage.clear())
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:11:8
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('[class*="bg-slate-900"][class*="border-slate-700"]').filter({ has: locator('text=/Balance|Account #/i') }).first()[22m
+
+
+      29 |     }).first()
+      30 |     
+    > 31 |     await firstCard.click()
+         |                     ^
+      32 |     
+      33 |     // Wait for transactions page to load
+      34 |     await expect(page).toHaveURL(/\/transactions\?accountId=/, { timeout: 5000 })
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:31:21
+
+    Error Context: test-results/transactions-Transactions--f91d1--when-no-transactions-exist-chromium/error-context.md
+
+
+[1A[2K  18) [chromium] › src/e2e/transactions.spec.ts:260:3 › Transactions › should navigate between pages 
+
+    [31mTest timeout of 30000ms exceeded while running "beforeEach" hook.[39m
+
+       9 | test.describe('Transactions', () => {
+      10 |   // Helper to login and navigate to transactions
+    > 11 |   test.beforeEach(async ({ page }) => {
+         |        ^
+      12 |     // Login
+      13 |     await page.goto('/login')
+      14 |     await page.evaluate(() => localStorage.clear())
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:11:8
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('[class*="bg-slate-900"][class*="border-slate-700"]').filter({ has: locator('text=/Balance|Account #/i') }).first()[22m
+
+
+      29 |     }).first()
+      30 |     
+    > 31 |     await firstCard.click()
+         |                     ^
+      32 |     
+      33 |     // Wait for transactions page to load
+      34 |     await expect(page).toHaveURL(/\/transactions\?accountId=/, { timeout: 5000 })
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:31:21
+
+    Error Context: test-results/transactions-Transactions-should-navigate-between-pages-chromium/error-context.md
+
+
+[1A[2K  19) [chromium] › src/e2e/transactions.spec.ts:233:3 › Transactions › should change page size and update table 
+
+    [31mTest timeout of 30000ms exceeded while running "beforeEach" hook.[39m
+
+       9 | test.describe('Transactions', () => {
+      10 |   // Helper to login and navigate to transactions
+    > 11 |   test.beforeEach(async ({ page }) => {
+         |        ^
+      12 |     // Login
+      13 |     await page.goto('/login')
+      14 |     await page.evaluate(() => localStorage.clear())
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:11:8
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('[class*="bg-slate-900"][class*="border-slate-700"]').filter({ has: locator('text=/Balance|Account #/i') }).first()[22m
+
+
+      29 |     }).first()
+      30 |     
+    > 31 |     await firstCard.click()
+         |                     ^
+      32 |     
+      33 |     // Wait for transactions page to load
+      34 |     await expect(page).toHaveURL(/\/transactions\?accountId=/, { timeout: 5000 })
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:31:21
+
+    Error Context: test-results/transactions-Transactions--23e8a--page-size-and-update-table-chromium/error-context.md
+
+
+[1A[2K  20) [chromium] › src/e2e/transactions.spec.ts:282:3 › Transactions › should maintain filter when changing pages 
+
+    [31mTest timeout of 30000ms exceeded while running "beforeEach" hook.[39m
+
+       9 | test.describe('Transactions', () => {
+      10 |   // Helper to login and navigate to transactions
+    > 11 |   test.beforeEach(async ({ page }) => {
+         |        ^
+      12 |     // Login
+      13 |     await page.goto('/login')
+      14 |     await page.evaluate(() => localStorage.clear())
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:11:8
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('[class*="bg-slate-900"][class*="border-slate-700"]').filter({ has: locator('text=/Balance|Account #/i') }).first()[22m
+
+
+      29 |     }).first()
+      30 |     
+    > 31 |     await firstCard.click()
+         |                     ^
+      32 |     
+      33 |     // Wait for transactions page to load
+      34 |     await expect(page).toHaveURL(/\/transactions\?accountId=/, { timeout: 5000 })
+        at /Users/itsector/Documents/Fontes/Cursos/ITSectorAI/spec-driven-homebanking/src/web/src/e2e/transactions.spec.ts:31:21
+
+    Error Context: test-results/transactions-Transactions--3dd6d--filter-when-changing-pages-chromium/error-context.md
+
+
+[1A[2K  20 failed
+    [chromium] › src/e2e/dashboard.spec.ts:24:3 › Dashboard › should display welcome message with user email 
+    [chromium] › src/e2e/dashboard.spec.ts:32:3 › Dashboard › should display account cards with name, balance, and last updated 
+    [chromium] › src/e2e/dashboard.spec.ts:69:3 › Dashboard › should navigate to transactions page when clicking on account card 
+    [chromium] › src/e2e/dashboard.spec.ts:91:3 › Dashboard › should display multiple account cards in responsive grid 
+    [chromium] › src/e2e/dashboard.spec.ts:115:3 › Dashboard › should show hover effect on account cards 
+    [chromium] › src/e2e/dashboard.spec.ts:152:3 › Dashboard › should display loading skeleton while fetching accounts 
+    [chromium] › src/e2e/login.spec.ts:16:3 › Login Flow › should successfully login with valid credentials and redirect to dashboard 
+    [chromium] › src/e2e/login.spec.ts:50:3 › Login Flow › should show error message with invalid credentials 
+    [chromium] › src/e2e/login.spec.ts:84:3 › Login Flow › should validate email format ────────────
+    [chromium] › src/e2e/login.spec.ts:98:3 › Login Flow › should persist authentication across page reloads 
+    [chromium] › src/e2e/transactions.spec.ts:37:3 › Transactions › should display transactions table with all required columns 
+    [chromium] › src/e2e/transactions.spec.ts:56:3 › Transactions › should display category badges with colors for each transaction 
+    [chromium] › src/e2e/transactions.spec.ts:89:3 › Transactions › should format transaction amounts with currency and +/- signs 
+    [chromium] › src/e2e/transactions.spec.ts:110:3 › Transactions › should filter transactions by category 
+    [chromium] › src/e2e/transactions.spec.ts:161:3 › Transactions › should show all transactions when filter is cleared 
+    [chromium] › src/e2e/transactions.spec.ts:194:3 › Transactions › should display pagination controls 
+    [chromium] › src/e2e/transactions.spec.ts:218:3 › Transactions › should handle empty state when no transactions exist 
+    [chromium] › src/e2e/transactions.spec.ts:233:3 › Transactions › should change page size and update table 
+    [chromium] › src/e2e/transactions.spec.ts:260:3 › Transactions › should navigate between pages ─
+    [chromium] › src/e2e/transactions.spec.ts:282:3 › Transactions › should maintain filter when changing pages 
+  3 passed (1.6m)

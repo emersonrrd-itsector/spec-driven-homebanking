@@ -14,7 +14,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddHomeBankingContext();
 
 // Add authentication services
-var jwtSecret = builder.Configuration["JWT_SECRET"] ?? "demo-secret-key";
+var jwtSecret = builder.Configuration["JWT_SECRET"] ?? "demo-secret-key-2024-homebanking";
 var jwtExpiryHours = int.TryParse(builder.Configuration["JWT_EXPIRY_HOURS"], out var expiryHours) ? expiryHours : 24;
 
 builder.Services
@@ -48,6 +48,18 @@ builder.Services.AddControllers(options =>
     options.Filters.Add<ModelValidationFilter>();
 });
 
+// Add CORS for development (allow requests from Vite dev server)
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
 
 // Seed demo data on startup
@@ -67,6 +79,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Enable CORS
+app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();

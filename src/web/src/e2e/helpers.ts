@@ -21,10 +21,12 @@ export async function login(
   
   await page.getByLabel(/email/i).fill(email)
   await page.getByLabel(/password/i).fill(password)
-  await page.getByRole('button', { name: /log in/i }).click()
   
-  // Wait for redirect to dashboard
-  await expect(page).toHaveURL('/dashboard', { timeout: 10000 })
+  // Submit and wait for redirect to dashboard
+  await Promise.all([
+    page.waitForURL('/dashboard', { timeout: 10000 }),
+    page.getByRole('button', { name: /login/i }).click()
+  ])
 }
 
 /**

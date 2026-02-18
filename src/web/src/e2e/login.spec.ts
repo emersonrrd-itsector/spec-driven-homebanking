@@ -29,11 +29,11 @@ test.describe('Login Flow', () => {
     await page.getByLabel(/email/i).fill('admin@homebank.local')
     await page.getByLabel(/password/i).fill('demo123')
     
-    // Submit the form
-    await page.getByRole('button', { name: /log in/i }).click()
-    
-    // Wait for navigation and verify we're redirected to dashboard
-    await expect(page).toHaveURL('/dashboard', { timeout: 10000 })
+    // Submit the form and wait for navigation
+    await Promise.all([
+      page.waitForURL('/dashboard', { timeout: 10000 }),
+      page.getByRole('button', { name: /login/i }).click()
+    ])
     
     // Verify JWT token is stored in localStorage
     const token = await page.evaluate(() => localStorage.getItem('homebank_jwt'))
@@ -55,7 +55,7 @@ test.describe('Login Flow', () => {
     await page.getByLabel(/password/i).fill('wrongpassword')
     
     // Submit the form
-    await page.getByRole('button', { name: /log in/i }).click()
+    await page.getByRole('button', { name: /login/i }).click()
     
     // Should stay on login page
     await expect(page).toHaveURL('/login')
@@ -72,7 +72,7 @@ test.describe('Login Flow', () => {
     await page.goto('/login')
     
     // Try to submit empty form
-    await page.getByRole('button', { name: /log in/i }).click()
+    await page.getByRole('button', { name: /login/i }).click()
     
     // Should show validation messages
     await expect(page.getByText(/email is required/i)).toBeVisible()
@@ -100,10 +100,12 @@ test.describe('Login Flow', () => {
     await page.goto('/login')
     await page.getByLabel(/email/i).fill('admin@homebank.local')
     await page.getByLabel(/password/i).fill('demo123')
-    await page.getByRole('button', { name: /log in/i }).click()
     
-    // Wait for redirect to dashboard
-    await expect(page).toHaveURL('/dashboard', { timeout: 10000 })
+    // Submit and wait for navigation
+    await Promise.all([
+      page.waitForURL('/dashboard', { timeout: 10000 }),
+      page.getByRole('button', { name: /login/i }).click()
+    ])
     
     // Reload the page
     await page.reload()
@@ -120,7 +122,7 @@ test.describe('Login Flow', () => {
     await page.getByLabel(/password/i).fill('demo123')
     
     // Submit form
-    const submitButton = page.getByRole('button', { name: /log in/i })
+    const submitButton = page.getByRole('button', { name: /login/i })
     await submitButton.click()
     
     // Button should be disabled during loading (though this might be quick)

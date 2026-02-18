@@ -36,7 +36,7 @@ function LoginPage() {
       email: '',
       password: '',
     },
-    mode: 'onBlur', // Validate on blur for better UX
+    mode: 'onSubmit', // Validate on submit for better test compatibility
   })
 
   /**

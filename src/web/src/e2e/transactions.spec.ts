@@ -15,7 +15,7 @@ test.describe('Transactions', () => {
     
     await page.getByLabel(/email/i).fill('admin@homebank.local')
     await page.getByLabel(/password/i).fill('demo123')
-    await page.getByRole('button', { name: /log in/i }).click()
+    await page.getByRole('button', { name: /login/i }).click()
     
     // Wait for dashboard
     await expect(page).toHaveURL('/dashboard', { timeout: 10000 })
