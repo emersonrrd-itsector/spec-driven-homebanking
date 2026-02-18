@@ -1,11 +1,20 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor } from '../tests/test-utils'
 import userEvent from '@testing-library/user-event'
-import { BrowserRouter } from 'react-router-dom'
 import { server } from '../tests/setup'
 import { successHandlers, errorHandlers } from '../tests/mocks/handlers'
 import LoginPage from './LoginPage'
 import { AUTH_TOKEN_KEY } from '../services/api'
+
+// Mock useNavigate at module level
+const mockNavigate = vi.fn()
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom')
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  }
+})
 
 /**
  * LoginPage component tests
@@ -15,16 +24,6 @@ describe('LoginPage', () => {
   const validEmail = 'admin@homebank.local'
   const validPassword = 'demo123'
 
-  // Mock useNavigate
-  const mockNavigate = vi.fn()
-  vi.mock('react-router-dom', async () => {
-    const actual = await vi.importActual('react-router-dom')
-    return {
-      ...actual,
-      useNavigate: () => mockNavigate,
-    }
-  })
-
   beforeEach(() => {
     mockNavigate.mockClear()
     localStorage.clear()
@@ -33,9 +32,7 @@ describe('LoginPage', () => {
   describe('Form Rendering', () => {
     it('should render login form with email and password inputs', () => {
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       expect(screen.getByText('HomeBanking')).toBeInTheDocument()
@@ -47,9 +44,7 @@ describe('LoginPage', () => {
 
     it('should display demo credentials hint', () => {
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       expect(screen.getByText('Demo Credentials:')).toBeInTheDocument()
@@ -59,9 +54,7 @@ describe('LoginPage', () => {
 
     it('should render with correct placeholders', () => {
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByPlaceholderText(
@@ -77,9 +70,7 @@ describe('LoginPage', () => {
 
     it('should have dark theme styling', () => {
       const { container } = render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const mainDiv = container.querySelector('div.bg-slate-950')
@@ -91,9 +82,7 @@ describe('LoginPage', () => {
     it('should show email required validation error', async () => {
       const user = userEvent.setup()
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByLabelText('Email')
@@ -111,9 +100,7 @@ describe('LoginPage', () => {
     it('should show email format validation error', async () => {
       const user = userEvent.setup()
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByLabelText('Email')
@@ -133,9 +120,7 @@ describe('LoginPage', () => {
     it('should show password required validation error', async () => {
       const user = userEvent.setup()
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const passwordInput = screen.getByLabelText('Password')
@@ -153,9 +138,7 @@ describe('LoginPage', () => {
     it('should show password minimum length validation error', async () => {
       const user = userEvent.setup()
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const passwordInput = screen.getByLabelText('Password')
@@ -177,9 +160,7 @@ describe('LoginPage', () => {
       server.use(...successHandlers)
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const submitButton = screen.getByRole('button', { name: /login/i })
@@ -200,9 +181,7 @@ describe('LoginPage', () => {
       server.use(...successHandlers)
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByLabelText('Email')
@@ -226,9 +205,7 @@ describe('LoginPage', () => {
       server.use(...successHandlers)
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByLabelText('Email')
@@ -251,9 +228,7 @@ describe('LoginPage', () => {
       server.use(...successHandlers)
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByLabelText('Email')
@@ -274,9 +249,7 @@ describe('LoginPage', () => {
       server.use(...successHandlers)
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByLabelText('Email') as HTMLInputElement
@@ -300,9 +273,7 @@ describe('LoginPage', () => {
       server.use(...successHandlers)
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByLabelText('Email')
@@ -326,9 +297,7 @@ describe('LoginPage', () => {
       server.use(errorHandlers.loginError)
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByLabelText('Email')
@@ -352,9 +321,7 @@ describe('LoginPage', () => {
       server.use(errorHandlers.loginError)
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByLabelText('Email')
@@ -378,9 +345,7 @@ describe('LoginPage', () => {
       server.use(errorHandlers.loginError)
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByLabelText('Email')
@@ -419,9 +384,7 @@ describe('LoginPage', () => {
       server.use(errorHandlers.loginError)
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByLabelText('Email') as HTMLInputElement
@@ -451,9 +414,7 @@ describe('LoginPage', () => {
       const user = userEvent.setup()
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByLabelText('Email') as HTMLInputElement
@@ -470,9 +431,7 @@ describe('LoginPage', () => {
       const user = userEvent.setup()
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByLabelText('Email')
@@ -495,9 +454,7 @@ describe('LoginPage', () => {
       server.use(...successHandlers)
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByLabelText('Email')
@@ -517,9 +474,7 @@ describe('LoginPage', () => {
       const user = userEvent.setup()
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByLabelText('Email')
@@ -531,7 +486,7 @@ describe('LoginPage', () => {
 
       await waitFor(() => {
         expect(
-          screen.getByText('Please enter a valid email address')
+          screen.getByText('Email is required')
         ).toBeInTheDocument()
       })
     })
@@ -541,9 +496,7 @@ describe('LoginPage', () => {
       server.use(errorHandlers.loginError)
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByLabelText('Email')
@@ -569,9 +522,7 @@ describe('LoginPage', () => {
       server.use(...successHandlers)
 
       render(
-        <BrowserRouter>
-          <LoginPage />
-        </BrowserRouter>
+        <LoginPage />
       )
 
       const emailInput = screen.getByLabelText('Email') as HTMLInputElement

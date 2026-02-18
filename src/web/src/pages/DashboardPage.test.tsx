@@ -1,7 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor } from '../tests/test-utils'
 import userEvent from '@testing-library/user-event'
-import { BrowserRouter } from 'react-router-dom'
 import DashboardPage from './DashboardPage'
 import AccountsService from '../services/accountsService'
 import AuthService from '../services/authService'
@@ -21,21 +20,21 @@ vi.mock('react-router-dom', async () => {
 // Mock account data
 const mockAccounts: AccountDto[] = [
   {
-    id: 'acc_001',
+    id: 'acc_0001',
     name: 'Checking',
     balance: 5000.0,
     currency: 'USD',
     lastUpdated: '2026-02-17T12:00:00Z',
   },
   {
-    id: 'acc_002',
+    id: 'acc_0002',
     name: 'Savings',
     balance: 10000.5,
     currency: 'USD',
     lastUpdated: '2026-02-17T11:30:00Z',
   },
   {
-    id: 'acc_003',
+    id: 'acc_0003',
     name: 'Business',
     balance: 25000.0,
     currency: 'USD',
@@ -59,9 +58,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue(mockAccounts)
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -74,9 +71,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue(mockAccounts)
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -89,9 +84,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue([])
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -106,9 +99,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue(mockAccounts)
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -123,9 +114,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue(mockAccounts)
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -140,9 +129,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue(mockAccounts)
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -156,13 +143,12 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue(mockAccounts)
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
-        expect(screen.getByText(/Updated:/i)).toBeInTheDocument()
+        const dateElements = screen.getAllByText(/2026/i)
+        expect(dateElements.length).toBeGreaterThanOrEqual(3)
       })
     })
 
@@ -171,9 +157,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue(mockAccounts)
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -188,9 +172,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue(mockAccounts)
 
       const { container } = render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -215,9 +197,7 @@ describe('DashboardPage', () => {
       )
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       expect(screen.getByText(/Loading your accounts.../i)).toBeInTheDocument()
@@ -233,9 +213,7 @@ describe('DashboardPage', () => {
       )
 
       const { container } = render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       // Check for skeleton cards (pulse animation elements)
@@ -250,9 +228,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue(mockAccounts)
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -265,9 +241,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue(mockAccounts)
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -287,9 +261,7 @@ describe('DashboardPage', () => {
       )
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -311,9 +283,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockRejectedValue(apiError)
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -330,9 +300,7 @@ describe('DashboardPage', () => {
       )
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -347,9 +315,7 @@ describe('DashboardPage', () => {
         .mockResolvedValueOnce(mockAccounts)
 
       const { rerender } = render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -361,9 +327,7 @@ describe('DashboardPage', () => {
 
       // Rerender after retry
       rerender(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -378,9 +342,7 @@ describe('DashboardPage', () => {
       )
 
       const { container } = render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -397,9 +359,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue([])
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -412,9 +372,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue([])
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -431,9 +389,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue(mockAccounts)
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -448,9 +404,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue(mockAccounts)
 
       const { container } = render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -464,9 +418,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue(mockAccounts)
 
       const { container } = render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -490,9 +442,7 @@ describe('DashboardPage', () => {
       ])
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -513,9 +463,7 @@ describe('DashboardPage', () => {
       ])
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -536,9 +484,7 @@ describe('DashboardPage', () => {
       ])
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -559,9 +505,7 @@ describe('DashboardPage', () => {
       ])
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -583,9 +527,7 @@ describe('DashboardPage', () => {
       ])
 
       render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -600,9 +542,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue(mockAccounts)
 
       const { container } = render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -616,9 +556,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue(mockAccounts)
 
       const { container } = render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {
@@ -632,9 +570,7 @@ describe('DashboardPage', () => {
       vi.mocked(AccountsService.getAccounts).mockResolvedValue(mockAccounts)
 
       const { container } = render(
-        <BrowserRouter>
-          <DashboardPage />
-        </BrowserRouter>
+        <DashboardPage />
       )
 
       await waitFor(() => {

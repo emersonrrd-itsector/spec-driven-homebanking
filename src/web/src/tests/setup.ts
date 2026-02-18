@@ -5,6 +5,14 @@ import { setupServer } from 'msw/node'
 import { http, HttpResponse } from 'msw'
 import { webcrypto } from 'crypto'
 
+// Ensure test environment variables are set BEFORE any module imports
+const API_TEST_URL = 'http://localhost:5000'
+
+// Set test environment variables before any modules are imported
+if (!import.meta.env.VITE_API_URL) {
+  (import.meta.env as any).VITE_API_URL = API_TEST_URL
+}
+
 // Polyfill crypto for Node.js
 if (!globalThis.crypto) {
   globalThis.crypto = webcrypto as Crypto
@@ -57,17 +65,26 @@ Object.defineProperty(window, 'localStorage', {
   value: localStorageMock,
 })
 
-// Mock window.location.href
-delete (window.location as any).href
-Object.defineProperty(window.location, 'href', {
+// Mock window.location
+Object.defineProperty(window, 'location', {
+  value: {
+    ...window.location,
+    href: 'http://localhost:3000',
+    origin: 'http://localhost:3000',
+    protocol: 'http:',
+    host: 'localhost:3000',
+    hostname: 'localhost',
+    port: '3000',
+    pathname: '/',
+    reload: vi.fn(),
+  },
   writable: true,
-  value: '',
 })
 
 // Setup MSW server with default handlers
 export const server = setupServer(
   // Default handlers can be overridden per test
-  http.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/auth`, async () => {
+  http.post(`${API_TEST_URL}/api/auth`, async () => {
     return HttpResponse.json(
       {
         code: 'InvalidCredentials',

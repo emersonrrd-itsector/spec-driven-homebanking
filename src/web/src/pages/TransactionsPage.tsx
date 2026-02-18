@@ -266,8 +266,9 @@ function TransactionsPage() {
         <CardContent className="space-y-4">
           {/* Account Selector */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-white">Account</label>
+            <label htmlFor="account-select" className="text-sm font-medium text-white">Account</label>
             <select
+              id="account-select"
               value={selectedAccountId}
               onChange={(e) => handleAccountChange(e.target.value)}
               disabled={isLoading}
@@ -290,8 +291,9 @@ function TransactionsPage() {
 
           {/* Category Filter */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-white">Category</label>
+            <label htmlFor="category-select" className="text-sm font-medium text-white">Category</label>
             <select
+              id="category-select"
               value={selectedCategory}
               onChange={(e) => handleCategoryChange(e.target.value as TransactionCategory | 'All')}
               disabled={isLoading}
@@ -308,8 +310,9 @@ function TransactionsPage() {
 
           {/* Page Size Selector */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-white">Rows per page</label>
+            <label htmlFor="pagesize-select" className="text-sm font-medium text-white">Rows per page</label>
             <select
+              id="pagesize-select"
               value={pageSize}
               onChange={(e) => handlePageSizeChange(parseInt(e.target.value))}
               disabled={isLoading}

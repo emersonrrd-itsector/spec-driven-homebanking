@@ -3,7 +3,7 @@
  * These handlers intercept API calls during testing
  */
 
-import { http, HttpResponse } from 'msw'
+import { http, HttpResponse, delay } from 'msw'
 import type {
   LoginResponse,
   AccountDto,
@@ -14,7 +14,8 @@ import type {
   ErrorResponse,
 } from '../../types'
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+// Use hardcoded localhost for testing - MSW will match any method/host combination
+const BASE_URL = 'http://localhost:5000'
 
 // Mock data
 const mockUser = {
@@ -73,7 +74,10 @@ const mockTransactions: TransactionDto[] = [
  * Success handlers: Return valid responses
  */
 export const successHandlers = [
-  http.post(`${API_BASE_URL}/api/auth`, async ({ request }) => {
+  http.post(`${BASE_URL}/api/auth`, async ({ request }) => {
+    // Add small delay to make loading state testable
+    await delay(50)
+    
     const body = (await request.json()) as { email: string; password: string }
 
     if (body.email === 'admin@homebank.local' && body.password === 'demo123') {
@@ -95,14 +99,14 @@ export const successHandlers = [
     return HttpResponse.json(error, { status: 401 })
   }),
 
-  http.get(`${API_BASE_URL}/api/accounts`, () => {
+  http.get(`${BASE_URL}/api/accounts`, () => {
     const response: AccountsResponse = {
       accounts: mockAccounts,
     }
     return HttpResponse.json(response, { status: 200 })
   }),
 
-  http.get(`${API_BASE_URL}/api/accounts/:id`, ({ params }) => {
+  http.get(`${BASE_URL}/api/accounts/:id`, ({ params }) => {
     const account = mockAccounts.find((a) => a.id === params.id)
     if (account) {
       return HttpResponse.json(account, { status: 200 })
@@ -117,7 +121,7 @@ export const successHandlers = [
     return HttpResponse.json(error, { status: 404 })
   }),
 
-  http.get(`${API_BASE_URL}/api/transactions`, ({ request }) => {
+  http.get(`${BASE_URL}/api/transactions`, ({ request }) => {
     const url = new URL(request.url)
     const accountId = url.searchParams.get('accountId')
     const skip = parseInt(url.searchParams.get('skip') || '0')
@@ -142,7 +146,7 @@ export const successHandlers = [
     return HttpResponse.json(response, { status: 200 })
   }),
 
-  http.post(`${API_BASE_URL}/api/transfers`, async () => {
+  http.post(`${BASE_URL}/api/transfers`, async () => {
     const response: TransferResponse = {
       transferId: 'xfr-001',
       status: 'completed',
@@ -164,7 +168,7 @@ export const successHandlers = [
  * Error handlers: Return error responses
  */
 export const errorHandlers = {
-  loginError: http.post(`${API_BASE_URL}/api/auth`, () => {
+  loginError: http.post(`${BASE_URL}/api/auth`, () => {
     const error: ErrorResponse = {
       code: 'InvalidCredentials',
       message: 'Email or password incorrect',
@@ -174,7 +178,7 @@ export const errorHandlers = {
     return HttpResponse.json(error, { status: 401 })
   }),
 
-  accountNotFound: http.get(`${API_BASE_URL}/api/accounts/:id`, () => {
+  accountNotFound: http.get(`${BASE_URL}/api/accounts/:id`, () => {
     const error: ErrorResponse = {
       code: 'NotFound',
       message: 'Account not found',
@@ -184,7 +188,7 @@ export const errorHandlers = {
     return HttpResponse.json(error, { status: 404 })
   }),
 
-  insufficientBalance: http.post(`${API_BASE_URL}/api/transfers`, () => {
+  insufficientBalance: http.post(`${BASE_URL}/api/transfers`, () => {
     const error: ErrorResponse = {
       code: 'InsufficientBalance',
       message: 'Transfer amount exceeds available balance',
@@ -197,7 +201,7 @@ export const errorHandlers = {
     return HttpResponse.json(error, { status: 400 })
   }),
 
-  invalidTransfer: http.post(`${API_BASE_URL}/api/transfers`, () => {
+  invalidTransfer: http.post(`${BASE_URL}/api/transfers`, () => {
     const error: ErrorResponse = {
       code: 'InvalidTransfer',
       message: 'Cannot transfer to the same account',
@@ -207,7 +211,7 @@ export const errorHandlers = {
     return HttpResponse.json(error, { status: 400 })
   }),
 
-  serverError: http.get(`${API_BASE_URL}/api/accounts`, () => {
+  serverError: http.get(`${BASE_URL}/api/accounts`, () => {
     const error: ErrorResponse = {
       code: 'InternalServerError',
       message: 'An unexpected error occurred',
