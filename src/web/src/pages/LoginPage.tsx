@@ -106,6 +106,7 @@ function LoginPage() {
             <form
               onSubmit={form.handleSubmit(handleSubmit)}
               className="space-y-5"
+              noValidate
             >
               {/* Email Field */}
               <FormField

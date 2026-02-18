@@ -5,13 +5,11 @@ import { setupServer } from 'msw/node'
 import { http, HttpResponse } from 'msw'
 import { webcrypto } from 'crypto'
 
-// Ensure test environment variables are set BEFORE any module imports
+// Ensure test environment variables are set to match MSW
 const API_TEST_URL = 'http://localhost:5000'
 
-// Set test environment variables before any modules are imported
-if (!import.meta.env.VITE_API_URL) {
-  (import.meta.env as any).VITE_API_URL = API_TEST_URL
-}
+// Force VITE_API_URL to match the MSW handlers URL using Vitest stubEnv
+vi.stubEnv('VITE_API_URL', API_TEST_URL)
 
 // Polyfill crypto for Node.js
 if (!globalThis.crypto) {

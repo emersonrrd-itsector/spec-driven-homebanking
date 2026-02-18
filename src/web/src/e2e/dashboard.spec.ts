@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import { login } from './helpers'
 
 /**
  * Dashboard E2E Tests
@@ -9,24 +10,18 @@ import { test, expect } from '@playwright/test'
 test.describe('Dashboard', () => {
   // Helper to login before each test
   test.beforeEach(async ({ page }) => {
-    // Navigate to login and authenticate
-    await page.goto('/login')
-    await page.evaluate(() => localStorage.clear())
-    
-    await page.getByLabel(/email/i).fill('admin@homebank.local')
-    await page.getByLabel(/password/i).fill('demo123')
-    await page.getByRole('button', { name: /login/i }).click()
-    
-    // Wait for dashboard to load
-    await expect(page).toHaveURL('/dashboard', { timeout: 10000 })
+    // navigate and authenticate using helper
+    await login(page)
   })
 
   test('should display welcome message with user email', async ({ page }) => {
-    // Verify welcome message is visible
-    await expect(page.getByRole('heading', { name: /welcome/i, level: 1 })).toBeVisible()
+    // Verify welcome message is visible - wait for it to be visible first
+    const welcomeHeading = page.getByRole('heading', { name: /welcome/i, level: 1 })
+    await expect(welcomeHeading).toBeVisible()
     
     // Verify user email is displayed
-    await expect(page.getByText(/logged in as.*admin@homebank\.local/i)).toBeVisible()
+    // Use .first() to avoid ambiguity if it appears in multiple places (header vs dashboard content)
+    await expect(page.getByText(/logged in as.*admin@homebank\.local/i).first()).toBeVisible()
   })
 
   test('should display account cards with name, balance, and last updated', async ({ page }) => {

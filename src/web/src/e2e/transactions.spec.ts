@@ -111,15 +111,7 @@ test.describe('Transactions', () => {
     // Wait for table to load
     await page.waitForSelector('text=/loading/i', { state: 'detached', timeout: 10000 }).catch(() => {})
     
-    // Find category filter dropdown (combobox or select)
-    const categoryFilter = page.locator('select').filter({
-      has: page.locator('option:has-text("All Categories"), option:has-text("Groceries")')
-    }).or(page.getByRole('combobox', { name: /category/i }))
-    
-    // If no explicit role, look for select element near "Category" label
-    const filterSelect = await page.locator('select').first().isVisible()
-      ? page.locator('select').first()
-      : page.locator('[id*="category"], [name*="category"]').first()
+    const selectElement = page.locator('#category-select')
     
     // Get initial row count
     const initialRows = page.getByRole('row').filter({ has: page.getByRole('cell') })
@@ -128,8 +120,6 @@ test.describe('Transactions', () => {
     expect(initialCount).toBeGreaterThan(0)
     
     // Select a specific category (e.g., "Groceries")
-    // First check if we have a visible select element
-    const selectElement = page.locator('select').first()
     const isSelectVisible = await selectElement.isVisible().catch(() => false)
     
     if (isSelectVisible) {
@@ -167,7 +157,7 @@ test.describe('Transactions', () => {
     const initialCount = await initialRows.count()
     
     // Apply a filter
-    const selectElement = page.locator('select').first()
+    const selectElement = page.locator('#category-select')
     const isSelectVisible = await selectElement.isVisible().catch(() => false)
     
     if (isSelectVisible) {
@@ -284,7 +274,7 @@ test.describe('Transactions', () => {
     await page.waitForSelector('text=/loading/i', { state: 'detached', timeout: 10000 }).catch(() => {})
     
     // Apply a category filter
-    const selectElement = page.locator('select').first()
+    const selectElement = page.locator('#category-select')
     const isSelectVisible = await selectElement.isVisible().catch(() => false)
     
     if (isSelectVisible) {

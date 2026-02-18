@@ -22,11 +22,14 @@ export async function login(
   await page.getByLabel(/email/i).fill(email)
   await page.getByLabel(/password/i).fill(password)
   
-  // Submit and wait for redirect to dashboard
-  await Promise.all([
-    page.waitForURL('/dashboard', { timeout: 10000 }),
-    page.getByRole('button', { name: /login/i }).click()
-  ])
+  // Click login button
+  await page.getByRole('button', { name: /login/i }).click()
+
+  // Wait for token to be set in localStorage
+  await page.waitForFunction(() => !!localStorage.getItem('homebank_jwt'), null, { timeout: 10000 })
+  
+  // Wait for navigation to dashboard
+  await page.waitForURL('**/dashboard', { timeout: 10000 })
 }
 
 /**
@@ -120,4 +123,13 @@ export const VALID_CATEGORIES = [
  */
 export function isValidCategory(category: string): boolean {
   return VALID_CATEGORIES.includes(category as typeof VALID_CATEGORIES[number])
+}
+
+/**
+ * Reset database to initial state for testing
+ * Uses the API test endpoint to clear and seed data
+ */
+export async function resetDatabase(page: Page) {
+  const response = await page.request.post('http://localhost:5087/api/test/reset')
+  expect(response.ok()).toBeTruthy()
 }

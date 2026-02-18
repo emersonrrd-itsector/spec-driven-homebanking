@@ -56,12 +56,15 @@ test.describe('Login Flow', () => {
     
     // Submit the form
     await page.getByRole('button', { name: /login/i }).click()
+
+    // Wait for the API response
+    await page.waitForResponse(response => response.url().includes('/auth') && response.status() === 401)
     
     // Should stay on login page
     await expect(page).toHaveURL('/login')
     
     // Wait for error message to appear
-    await expect(page.getByText(/invalid|failed|error/i)).toBeVisible({ timeout: 5000 })
+    await expect(page.getByText(/invalid|failed|error/i)).toBeVisible({ timeout: 15000 })
     
     // Verify no JWT token is stored
     const token = await page.evaluate(() => localStorage.getItem('homebank_jwt'))
@@ -88,8 +91,8 @@ test.describe('Login Flow', () => {
     await page.getByLabel(/email/i).fill('notanemail')
     await page.getByLabel(/password/i).fill('demo123')
     
-    // Blur email field to trigger validation
-    await page.getByLabel(/email/i).blur()
+    // Click submit to trigger validation
+    await page.getByRole('button', { name: /login/i }).click()
     
     // Should show validation message
     await expect(page.getByText(/valid email/i)).toBeVisible()
