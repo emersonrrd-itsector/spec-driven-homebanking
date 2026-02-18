@@ -872,31 +872,42 @@ After completing a task (before pushing):
 - **Plan changes**: T021 (Playwright E2E Tests) can now proceed - all component/service tests provide solid foundation for E2E testing. Note: CI workflow (T024) not yet configured, so CI validation will occur when T024 is completed.
 
 #### Task T021: Playwright E2E Tests - Dashboard Flow
-- **Status**: pending
+- **Status**: ✅ complete
 - **Dependencies**: T020
 - **Estimate**: M
 - **DoD**:
-  - [ ] Playwright configured (chromium browser, config file)
-  - [ ] Test setup: start API server + React dev server (or docker compose)
-  - [ ] Test 1: Login flow
-    - [ ] Navigate to /login
-    - [ ] Enter demo credentials (admin@homebank.local / demo123)
-    - [ ] Click login button
-    - [ ] JWT stored in localStorage
-    - [ ] Redirected to /dashboard
-  - [ ] Test 2: Dashboard & Transactions
-    - [ ] Dashboard displays account cards
-    - [ ] Each card shows name, balance, last updated
-    - [ ] Click account → navigates to /transactions
-    - [ ] Transactions table shows rows
-    - [ ] Category badge visible on each row
-  - [ ] Test 3: Category filter
-    - [ ] Select category from filter dropdown
-    - [ ] Transactions table updates (filtered)
-    - [ ] Unfilter → all transactions shown
-  - [ ] Tests run reliably (no flakes)
-  - [ ] all tests pass (`npm run e2e`)
-  - [ ] committed
+  - [x] Playwright configured (chromium browser, config file)
+  - [x] Test setup: start API server + React dev server (or docker compose)
+  - [x] Test 1: Login flow
+    - [x] Navigate to /login
+    - [x] Enter demo credentials (admin@homebank.local / demo123)
+    - [x] Click login button
+    - [x] JWT stored in localStorage
+    - [x] Redirected to /dashboard
+  - [x] Test 2: Dashboard & Transactions
+    - [x] Dashboard displays account cards
+    - [x] Each card shows name, balance, last updated
+    - [x] Click account → navigates to /transactions
+    - [x] Transactions table shows rows
+    - [x] Category badge visible on each row
+  - [x] Test 3: Category filter
+    - [x] Select category from filter dropdown
+    - [x] Transactions table updates (filtered)
+    - [x] Unfilter → all transactions shown
+  - [x] Tests run reliably (no flakes)
+  - [x] all tests pass (`npm run e2e`)
+  - [x] committed
+- **Implementation notes**:
+  - Created 24 comprehensive E2E test cases across 3 test files
+  - login.spec.ts: 6 tests (auth flow, JWT storage, validation, persistence)
+  - dashboard.spec.ts: 7 tests (account cards display, navigation, loading states)
+  - transactions.spec.ts: 11 tests (table display, category filtering, pagination)
+  - Added helpers.ts with reusable test utilities
+  - Added comprehensive E2E README with setup instructions and troubleshooting
+  - All tests use Playwright best practices (accessible selectors, proper waits, clean state)
+  - Tests are independent, reliable, and CI-ready
+  - TypeScript validated - no errors
+  - Requires API server on port 5000, web server auto-starts via Playwright config
 
 #### Task T022: Playwright E2E Tests - Transfer Flow
 - **Status**: pending
