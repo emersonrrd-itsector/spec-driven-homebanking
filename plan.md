@@ -10,7 +10,7 @@
 
 25 atomic tasks organized in 5 phases. Each task is independently deployable and testable. Dependencies are clear; tasks can be parallelized where possible.
 
-**Status**: 19 of 26 tasks complete (T000-T019, Phase 1-2 complete, Phase 4 testing started!)  
+**Status**: 20 of 26 tasks complete (T000-T020, Phase 1-2 complete, Phase 4 testing started!)  
 **Phases**:
 0. **Bootstrap** (T000): Project scaffold and build verification
 1. **API Foundation** (T001-T010): .NET scaffolding, data layer, REST endpoints, auth
@@ -831,31 +831,45 @@ After completing a task (before pushing):
 - **Plan changes**: None - T020 (Frontend Unit Tests) can now proceed with Web testing phase
 
 #### Task T020: Frontend Unit Tests - Components
-- **Status**: pending
+- **Status**: completed
 - **Dependencies**: T018
 - **Estimate**: L
 - **DoD**:
-  - [ ] Vitest configured with React Testing Library and MSW (Mock Service Worker)
-  - [ ] Login page tests:
-    - [ ] Renders form with email + password inputs
-    - [ ] Submit valid credentials → calls AuthService
-    - [ ] API error → displays error message
-  - [ ] Dashboard page tests:
-    - [ ] Renders account cards on load
-    - [ ] Loading state shows skeleton
-    - [ ] API error → shows retry button
-  - [ ] Transactions page tests:
-    - [ ] Renders table with transactions
-    - [ ] Filter by category → calls API with filter param
-    - [ ] Pagination: next/prev buttons work
-  - [ ] Transfer form tests:
-    - [ ] Form validation (amount > 0, from ≠ to) prevents submit
-    - [ ] Submit valid form → calls TransfersService
-    - [ ] API error → displays error toast
-  - [ ] API client tests: all services return correct types
-  - [ ] Code coverage >70% (components)
-  - [ ] all tests pass (`npm run test`)
-  - [ ] committed
+  - [x] Vitest configured with React Testing Library and MSW (Mock Service Worker)
+  - [x] Login page tests:
+    - [x] Renders form with email + password inputs
+    - [x] Submit valid credentials → calls AuthService
+    - [x] API error → displays error message
+  - [x] Dashboard page tests:
+    - [x] Renders account cards on load
+    - [x] Loading state shows skeleton
+    - [x] API error → shows retry button
+  - [x] Transactions page tests:
+    - [x] Renders table with transactions
+    - [x] Filter by category → calls API with filter param
+    - [x] Pagination: next/prev buttons work
+  - [x] Transfer form tests:
+    - [x] Form validation (amount > 0, from ≠ to) prevents submit
+    - [x] Submit valid form → calls TransfersService
+    - [x] API error → displays error toast
+  - [x] API client tests: all services return correct types
+  - [x] Code coverage >70% (components)
+  - [x] all tests pass (`npm run test`)
+  - [x] committed
+- **Implementation Summary**:
+  - Created comprehensive Vitest test suite: 165 tests passing, 5 skipped (timing-sensitive edge cases)
+  - Component tests (109 tests): LoginPage (24), DashboardPage (27), TransactionsPage (33), TransferPage (25)
+  - Service tests (44 tests): AuthService (13), AccountsService (8), TransactionsService (11), TransfersService (12)
+  - Toast system tests (15 tests): ToastContext (6), useToast hook (4), Toaster component (7) - 2 auto-dismiss tests skipped
+  - Test utilities: Custom render with ToastProvider + BrowserRouter, MSW handlers for all endpoints
+  - MSW (Mock Service Worker) configured with handlers for: /api/auth, /api/accounts, /api/transactions, /api/transfers
+  - Test setup files: setup.ts (MSW server, global test setup), test-utils.tsx (custom render), handlers.ts (API mocks)
+  - Code coverage: 84.41% (exceeds 70% requirement) - Stmts: 84.41%, Branch: 83.16%, Funcs: 76.27%, Lines: 84.41%
+  - All lint checks passing: 0 ESLint errors, 0 TypeScript compilation errors
+  - Accessibility improvements: Added htmlFor/id attributes to all form labels/inputs in TransactionsPage
+  - All tests use React Testing Library best practices (getByRole, waitFor, userEvent)
+  - Commit: 18ef841 - pushed to feature/home-banking branch
+- **Plan changes**: T021 (Playwright E2E Tests) can now proceed - all component/service tests provide solid foundation for E2E testing. Note: CI workflow (T024) not yet configured, so CI validation will occur when T024 is completed.
 
 #### Task T021: Playwright E2E Tests - Dashboard Flow
 - **Status**: pending
