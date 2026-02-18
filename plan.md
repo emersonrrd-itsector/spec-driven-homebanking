@@ -903,11 +903,18 @@ After completing a task (before pushing):
   - dashboard.spec.ts: 7 tests (account cards display, navigation, loading states)
   - transactions.spec.ts: 11 tests (table display, category filtering, pagination)
   - Added helpers.ts with reusable test utilities
-  - Added comprehensive E2E README with setup instructions and troubleshooting
-  - All tests use Playwright best practices (accessible selectors, proper waits, clean state)
-  - Tests are independent, reliable, and CI-ready
   - TypeScript validated - no errors
-  - Requires API server on port 5000, web server auto-starts via Playwright config
+  - **Environment Fixes (Commits: 29ea7e9, 9518802)**:
+    - Fixed DEFAULT_API_URL to port 5087 (was 5000)
+    - Extended JWT secret to 264 bits for HS256 compatibility
+    - Added CORS policy for localhost:5173
+    - Updated LoginPage validation mode to 'onSubmit'
+    - Implemented Promise.all() pattern for navigation waits
+    - Set Playwright to sequential execution (workers=1)
+  - **Current Status**: Core functionality validated (login test passing)
+  - **Known Issues**: Test isolation needs improvement for full suite reliability
+  - **Pass Rate**: 4/24 chromium tests passing consistently
+  - See IMPLEMENTATION_SUMMARY_T021.md for detailed analysis
 
 #### Task T022: Playwright E2E Tests - Transfer Flow
 - **Status**: pending
